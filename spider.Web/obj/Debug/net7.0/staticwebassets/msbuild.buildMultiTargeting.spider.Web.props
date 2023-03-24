@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../build/spider.Web.props" />
+</Project>

@@ -1,0 +1,3 @@
+is_global = true
+build_property.RootNamespace = spider
+build_property.ProjectDir = /home/rosako/Рабочий стол/hdd/src/spider/src/spider.HttpApi.Client/

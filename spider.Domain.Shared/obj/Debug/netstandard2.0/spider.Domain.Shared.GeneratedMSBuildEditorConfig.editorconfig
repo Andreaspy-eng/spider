@@ -1,0 +1,3 @@
+is_global = true
+build_property.RootNamespace = spider
+build_property.ProjectDir = /mnt/hdd/src/spider/src/spider.Domain.Shared/

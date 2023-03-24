@@ -1,0 +1,13 @@
+/mnt/hdd/src/spider/src/spider.Application.Contracts/bin/Debug/netstandard2.0/spider.Application.Contracts.deps.json
+/mnt/hdd/src/spider/src/spider.Application.Contracts/bin/Debug/netstandard2.0/spider.Application.Contracts.dll
+/mnt/hdd/src/spider/src/spider.Application.Contracts/bin/Debug/netstandard2.0/spider.Application.Contracts.pdb
+/mnt/hdd/src/spider/src/spider.Application.Contracts/bin/Debug/netstandard2.0/spider.Domain.Shared.dll
+/mnt/hdd/src/spider/src/spider.Application.Contracts/bin/Debug/netstandard2.0/spider.Domain.Shared.pdb
+/mnt/hdd/src/spider/src/spider.Application.Contracts/obj/Debug/netstandard2.0/spider.Application.Contracts.csproj.AssemblyReference.cache
+/mnt/hdd/src/spider/src/spider.Application.Contracts/obj/Debug/netstandard2.0/spider.Application.Contracts.GeneratedMSBuildEditorConfig.editorconfig
+/mnt/hdd/src/spider/src/spider.Application.Contracts/obj/Debug/netstandard2.0/spider.Application.Contracts.AssemblyInfoInputs.cache
+/mnt/hdd/src/spider/src/spider.Application.Contracts/obj/Debug/netstandard2.0/spider.Application.Contracts.AssemblyInfo.cs
+/mnt/hdd/src/spider/src/spider.Application.Contracts/obj/Debug/netstandard2.0/spider.Application.Contracts.csproj.CoreCompileInputs.cache
+/mnt/hdd/src/spider/src/spider.Application.Contracts/obj/Debug/netstandard2.0/spider.Application.Contracts.csproj.CopyComplete
+/mnt/hdd/src/spider/src/spider.Application.Contracts/obj/Debug/netstandard2.0/spider.Application.Contracts.dll
+/mnt/hdd/src/spider/src/spider.Application.Contracts/obj/Debug/netstandard2.0/spider.Application.Contracts.pdb
