@@ -8,4 +8,4 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = spider.DbMigrator
-build_property.ProjectDir = /mnt/hdd/src/spider/src/spider.DbMigrator/
+build_property.ProjectDir = C:\Users\Andrew\Desktop\spider\src\spider.DbMigrator\

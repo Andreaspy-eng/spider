@@ -1,26 +1,28 @@
 {
   "format": 1,
   "restore": {
-    "/mnt/hdd/src/spider/src/spider.Domain/spider.Domain.csproj": {}
+    "C:\\Users\\Andrew\\Desktop\\spider\\src\\spider.Domain\\spider.Domain.csproj": {}
   },
   "projects": {
-    "/mnt/hdd/src/spider/src/spider.Domain.Shared/spider.Domain.Shared.csproj": {
+    "C:\\Users\\Andrew\\Desktop\\spider\\src\\spider.Domain.Shared\\spider.Domain.Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/mnt/hdd/src/spider/src/spider.Domain.Shared/spider.Domain.Shared.csproj",
+        "projectUniqueName": "C:\\Users\\Andrew\\Desktop\\spider\\src\\spider.Domain.Shared\\spider.Domain.Shared.csproj",
         "projectName": "spider.Domain.Shared",
-        "projectPath": "/mnt/hdd/src/spider/src/spider.Domain.Shared/spider.Domain.Shared.csproj",
-        "packagesPath": "/home/rosako/.nuget/packages/",
-        "outputPath": "/mnt/hdd/src/spider/src/spider.Domain.Shared/obj/",
+        "projectPath": "C:\\Users\\Andrew\\Desktop\\spider\\src\\spider.Domain.Shared\\spider.Domain.Shared.csproj",
+        "packagesPath": "C:\\Users\\Andrew\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Andrew\\Desktop\\spider\\src\\spider.Domain.Shared\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/mnt/hdd/src/spider/NuGet.Config",
-          "/home/rosako/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Andrew\\Desktop\\spider\\NuGet.Config",
+          "C:\\Users\\Andrew\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -93,35 +95,37 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.202/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "/mnt/hdd/src/spider/src/spider.Domain/spider.Domain.csproj": {
+    "C:\\Users\\Andrew\\Desktop\\spider\\src\\spider.Domain\\spider.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/mnt/hdd/src/spider/src/spider.Domain/spider.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\Andrew\\Desktop\\spider\\src\\spider.Domain\\spider.Domain.csproj",
         "projectName": "spider.Domain",
-        "projectPath": "/mnt/hdd/src/spider/src/spider.Domain/spider.Domain.csproj",
-        "packagesPath": "/home/rosako/.nuget/packages/",
-        "outputPath": "/mnt/hdd/src/spider/src/spider.Domain/obj/",
+        "projectPath": "C:\\Users\\Andrew\\Desktop\\spider\\src\\spider.Domain\\spider.Domain.csproj",
+        "packagesPath": "C:\\Users\\Andrew\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Andrew\\Desktop\\spider\\src\\spider.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/mnt/hdd/src/spider/NuGet.Config",
-          "/home/rosako/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Andrew\\Desktop\\spider\\NuGet.Config",
+          "C:\\Users\\Andrew\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "/mnt/hdd/src/spider/src/spider.Domain.Shared/spider.Domain.Shared.csproj": {
-                "projectPath": "/mnt/hdd/src/spider/src/spider.Domain.Shared/spider.Domain.Shared.csproj"
+              "C:\\Users\\Andrew\\Desktop\\spider\\src\\spider.Domain.Shared\\spider.Domain.Shared.csproj": {
+                "projectPath": "C:\\Users\\Andrew\\Desktop\\spider\\src\\spider.Domain.Shared\\spider.Domain.Shared.csproj"
               }
             }
           }
@@ -193,7 +197,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.202/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }

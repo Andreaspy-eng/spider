@@ -1,0 +1,20 @@
+@page
+@using spider.Localization
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<spiderResource> L
+@using spider.Web.Pages.Products
+@model IndexModel
+
+@section scripts
+{
+    <abp-script src="/Pages/Products/Index.js" />
+}
+
+<div class="card">
+  <div class="card-header">
+        <h2>@L["Products"]</h2>
+  </div>
+  <div class="card-body">
+        <table class="table table-bordered" striped-rows="true" id="ProductsTable"></table>
+  </div>
+</div>

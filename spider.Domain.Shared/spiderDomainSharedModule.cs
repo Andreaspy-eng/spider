@@ -37,13 +37,13 @@ public class spiderDomainSharedModule : AbpModule
     {
         Configure<AbpVirtualFileSystemOptions>(options =>
         {
-            options.FileSets.AddEmbedded<spiderDomainSharedModule>();
+            options.FileSets.AddEmbedded<spiderDomainSharedModule>("spider");
         });
 
         Configure<AbpLocalizationOptions>(options =>
         {
             options.Resources
-                .Add<spiderResource>("en")
+                .Add<spiderResource>("ru")
                 .AddBaseTypes(typeof(AbpValidationResource))
                 .AddVirtualJson("/Localization/spider");
 

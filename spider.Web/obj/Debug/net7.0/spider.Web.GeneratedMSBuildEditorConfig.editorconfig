@@ -9,25 +9,29 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = spider.Web
 build_property.RootNamespace = spider.Web
-build_property.ProjectDir = /mnt/hdd/src/spider/src/spider.Web/
+build_property.ProjectDir = C:\Users\Andrew\Desktop\spider\src\spider.Web\
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = true
-build_property.MSBuildProjectDirectory = /mnt/hdd/src/spider/src/spider.Web
+build_property.MSBuildProjectDirectory = C:\Users\Andrew\Desktop\spider\src\spider.Web
 build_property._RazorSourceGeneratorDebug = 
 
-[/mnt/hdd/src/spider/src/spider.Web/Components/_ViewImports.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9fVmlld0ltcG9ydHMuY3NodG1s
+[C:/Users/Andrew/Desktop/spider/src/spider.Web/Components/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xfVmlld0ltcG9ydHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/mnt/hdd/src/spider/src/spider.Web/Pages/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXguY3NodG1s
+[C:/Users/Andrew/Desktop/spider/src/spider.Web/Pages/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/mnt/hdd/src/spider/src/spider.Web/Pages/_ViewImports.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+[C:/Users/Andrew/Desktop/spider/src/spider.Web/Pages/Products/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVjdHNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/mnt/hdd/src/spider/src/spider.Web/Views/_ViewImports.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+[C:/Users/Andrew/Desktop/spider/src/spider.Web/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Andrew/Desktop/spider/src/spider.Web/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

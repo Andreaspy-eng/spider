@@ -11,3 +11,16 @@
 /mnt/hdd/src/spider/src/spider.Application.Contracts/obj/Debug/netstandard2.0/spider.Application.Contracts.csproj.CopyComplete
 /mnt/hdd/src/spider/src/spider.Application.Contracts/obj/Debug/netstandard2.0/spider.Application.Contracts.dll
 /mnt/hdd/src/spider/src/spider.Application.Contracts/obj/Debug/netstandard2.0/spider.Application.Contracts.pdb
+C:\Users\Andrew\Desktop\spider\src\spider.Application.Contracts\bin\Debug\netstandard2.0\spider.Application.Contracts.deps.json
+C:\Users\Andrew\Desktop\spider\src\spider.Application.Contracts\bin\Debug\netstandard2.0\spider.Application.Contracts.dll
+C:\Users\Andrew\Desktop\spider\src\spider.Application.Contracts\bin\Debug\netstandard2.0\spider.Application.Contracts.pdb
+C:\Users\Andrew\Desktop\spider\src\spider.Application.Contracts\bin\Debug\netstandard2.0\spider.Domain.Shared.dll
+C:\Users\Andrew\Desktop\spider\src\spider.Application.Contracts\bin\Debug\netstandard2.0\spider.Domain.Shared.pdb
+C:\Users\Andrew\Desktop\spider\src\spider.Application.Contracts\obj\Debug\netstandard2.0\spider.Application.Contracts.csproj.AssemblyReference.cache
+C:\Users\Andrew\Desktop\spider\src\spider.Application.Contracts\obj\Debug\netstandard2.0\spider.Application.Contracts.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Andrew\Desktop\spider\src\spider.Application.Contracts\obj\Debug\netstandard2.0\spider.Application.Contracts.AssemblyInfoInputs.cache
+C:\Users\Andrew\Desktop\spider\src\spider.Application.Contracts\obj\Debug\netstandard2.0\spider.Application.Contracts.AssemblyInfo.cs
+C:\Users\Andrew\Desktop\spider\src\spider.Application.Contracts\obj\Debug\netstandard2.0\spider.Application.Contracts.csproj.CoreCompileInputs.cache
+C:\Users\Andrew\Desktop\spider\src\spider.Application.Contracts\obj\Debug\netstandard2.0\spider.Application.Contracts.csproj.CopyComplete
+C:\Users\Andrew\Desktop\spider\src\spider.Application.Contracts\obj\Debug\netstandard2.0\spider.Application.Contracts.dll
+C:\Users\Andrew\Desktop\spider\src\spider.Application.Contracts\obj\Debug\netstandard2.0\spider.Application.Contracts.pdb

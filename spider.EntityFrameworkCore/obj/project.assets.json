@@ -8516,33 +8516,35 @@
     ]
   },
   "packageFolders": {
-    "/home/rosako/.nuget/packages/": {}
+    "C:\\Users\\Andrew\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/mnt/hdd/src/spider/src/spider.EntityFrameworkCore/spider.EntityFrameworkCore.csproj",
+      "projectUniqueName": "C:\\Users\\Andrew\\Desktop\\spider\\src\\spider.EntityFrameworkCore\\spider.EntityFrameworkCore.csproj",
       "projectName": "spider.EntityFrameworkCore",
-      "projectPath": "/mnt/hdd/src/spider/src/spider.EntityFrameworkCore/spider.EntityFrameworkCore.csproj",
-      "packagesPath": "/home/rosako/.nuget/packages/",
-      "outputPath": "/mnt/hdd/src/spider/src/spider.EntityFrameworkCore/obj/",
+      "projectPath": "C:\\Users\\Andrew\\Desktop\\spider\\src\\spider.EntityFrameworkCore\\spider.EntityFrameworkCore.csproj",
+      "packagesPath": "C:\\Users\\Andrew\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Andrew\\Desktop\\spider\\src\\spider.EntityFrameworkCore\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/mnt/hdd/src/spider/NuGet.Config",
-        "/home/rosako/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\Andrew\\Desktop\\spider\\NuGet.Config",
+        "C:\\Users\\Andrew\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "/mnt/hdd/src/spider/src/spider.Domain/spider.Domain.csproj": {
-              "projectPath": "/mnt/hdd/src/spider/src/spider.Domain/spider.Domain.csproj"
+            "C:\\Users\\Andrew\\Desktop\\spider\\src\\spider.Domain\\spider.Domain.csproj": {
+              "projectPath": "C:\\Users\\Andrew\\Desktop\\spider\\src\\spider.Domain\\spider.Domain.csproj"
             }
           }
         }
@@ -8616,7 +8618,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.202/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
       }
     }
   }

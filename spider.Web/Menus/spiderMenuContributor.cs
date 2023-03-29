@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using spider.Localization;
 using spider.MultiTenancy;
 using Volo.Abp.Identity.Web.Navigation;
 using Volo.Abp.SettingManagement.Web.Navigation;
@@ -20,26 +21,31 @@ public class spiderMenuContributor : IMenuContributor
     private Task ConfigureMainMenuAsync(MenuConfigurationContext context)
     {
         var administration = context.Menu.GetAdministration();
+        var l = context.GetLocalizer<spiderResource>();
 
         context.Menu.Items.Insert(
             0,
             new ApplicationMenuItem(
                 spiderMenus.Home,
-                "Главная",
+                l["Menu:Home"],
                 "~/",
-                icon: "fas fa-home",
-                order: 0
+                icon: "fas fa-home"
             )
         );
-         context.Menu.Items.Insert(
+
+        context.Menu.Items.Insert(
             1,
             new ApplicationMenuItem(
                 spiderMenus.Home,
-                "Справочники",
-                "~/",
-                icon: "fas fa-book",
-                order: 2
-            )
+                l["Handbook"],
+                icon: "fas fa-book"
+            ).AddItem(
+        new ApplicationMenuItem(
+            "spider.Products",
+            l["Products"],
+            url: "/Products"
+        )
+    )
         );
 
         if (MultiTenancyConsts.IsEnabled)

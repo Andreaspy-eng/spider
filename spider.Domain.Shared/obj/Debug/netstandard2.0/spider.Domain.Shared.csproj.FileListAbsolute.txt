@@ -8,3 +8,13 @@
 /mnt/hdd/src/spider/src/spider.Domain.Shared/obj/Debug/netstandard2.0/spider.Domain.Shared.csproj.CoreCompileInputs.cache
 /mnt/hdd/src/spider/src/spider.Domain.Shared/obj/Debug/netstandard2.0/spider.Domain.Shared.dll
 /mnt/hdd/src/spider/src/spider.Domain.Shared/obj/Debug/netstandard2.0/spider.Domain.Shared.pdb
+C:\Users\Andrew\Desktop\spider\src\spider.Domain.Shared\bin\Debug\netstandard2.0\spider.Domain.Shared.deps.json
+C:\Users\Andrew\Desktop\spider\src\spider.Domain.Shared\bin\Debug\netstandard2.0\spider.Domain.Shared.dll
+C:\Users\Andrew\Desktop\spider\src\spider.Domain.Shared\bin\Debug\netstandard2.0\spider.Domain.Shared.pdb
+C:\Users\Andrew\Desktop\spider\src\spider.Domain.Shared\obj\Debug\netstandard2.0\spider.Domain.Shared.csproj.AssemblyReference.cache
+C:\Users\Andrew\Desktop\spider\src\spider.Domain.Shared\obj\Debug\netstandard2.0\spider.Domain.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Andrew\Desktop\spider\src\spider.Domain.Shared\obj\Debug\netstandard2.0\spider.Domain.Shared.AssemblyInfoInputs.cache
+C:\Users\Andrew\Desktop\spider\src\spider.Domain.Shared\obj\Debug\netstandard2.0\spider.Domain.Shared.AssemblyInfo.cs
+C:\Users\Andrew\Desktop\spider\src\spider.Domain.Shared\obj\Debug\netstandard2.0\spider.Domain.Shared.csproj.CoreCompileInputs.cache
+C:\Users\Andrew\Desktop\spider\src\spider.Domain.Shared\obj\Debug\netstandard2.0\spider.Domain.Shared.dll
+C:\Users\Andrew\Desktop\spider\src\spider.Domain.Shared\obj\Debug\netstandard2.0\spider.Domain.Shared.pdb

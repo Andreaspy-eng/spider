@@ -1,34 +1,36 @@
 {
   "format": 1,
   "restore": {
-    "/mnt/hdd/src/spider/src/spider.HttpApi/spider.HttpApi.csproj": {}
+    "C:\\Users\\Andrew\\Desktop\\spider\\src\\spider.HttpApi\\spider.HttpApi.csproj": {}
   },
   "projects": {
-    "/mnt/hdd/src/spider/src/spider.Application.Contracts/spider.Application.Contracts.csproj": {
+    "C:\\Users\\Andrew\\Desktop\\spider\\src\\spider.Application.Contracts\\spider.Application.Contracts.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/mnt/hdd/src/spider/src/spider.Application.Contracts/spider.Application.Contracts.csproj",
+        "projectUniqueName": "C:\\Users\\Andrew\\Desktop\\spider\\src\\spider.Application.Contracts\\spider.Application.Contracts.csproj",
         "projectName": "spider.Application.Contracts",
-        "projectPath": "/mnt/hdd/src/spider/src/spider.Application.Contracts/spider.Application.Contracts.csproj",
-        "packagesPath": "/home/rosako/.nuget/packages/",
-        "outputPath": "/mnt/hdd/src/spider/src/spider.Application.Contracts/obj/",
+        "projectPath": "C:\\Users\\Andrew\\Desktop\\spider\\src\\spider.Application.Contracts\\spider.Application.Contracts.csproj",
+        "packagesPath": "C:\\Users\\Andrew\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Andrew\\Desktop\\spider\\src\\spider.Application.Contracts\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/mnt/hdd/src/spider/NuGet.Config",
-          "/home/rosako/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Andrew\\Desktop\\spider\\NuGet.Config",
+          "C:\\Users\\Andrew\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netstandard2.0": {
             "targetAlias": "netstandard2.0",
             "projectReferences": {
-              "/mnt/hdd/src/spider/src/spider.Domain.Shared/spider.Domain.Shared.csproj": {
-                "projectPath": "/mnt/hdd/src/spider/src/spider.Domain.Shared/spider.Domain.Shared.csproj"
+              "C:\\Users\\Andrew\\Desktop\\spider\\src\\spider.Domain.Shared\\spider.Domain.Shared.csproj": {
+                "projectPath": "C:\\Users\\Andrew\\Desktop\\spider\\src\\spider.Domain.Shared\\spider.Domain.Shared.csproj"
               }
             }
           }
@@ -89,27 +91,29 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.202/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "/mnt/hdd/src/spider/src/spider.Domain.Shared/spider.Domain.Shared.csproj": {
+    "C:\\Users\\Andrew\\Desktop\\spider\\src\\spider.Domain.Shared\\spider.Domain.Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/mnt/hdd/src/spider/src/spider.Domain.Shared/spider.Domain.Shared.csproj",
+        "projectUniqueName": "C:\\Users\\Andrew\\Desktop\\spider\\src\\spider.Domain.Shared\\spider.Domain.Shared.csproj",
         "projectName": "spider.Domain.Shared",
-        "projectPath": "/mnt/hdd/src/spider/src/spider.Domain.Shared/spider.Domain.Shared.csproj",
-        "packagesPath": "/home/rosako/.nuget/packages/",
-        "outputPath": "/mnt/hdd/src/spider/src/spider.Domain.Shared/obj/",
+        "projectPath": "C:\\Users\\Andrew\\Desktop\\spider\\src\\spider.Domain.Shared\\spider.Domain.Shared.csproj",
+        "packagesPath": "C:\\Users\\Andrew\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Andrew\\Desktop\\spider\\src\\spider.Domain.Shared\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/mnt/hdd/src/spider/NuGet.Config",
-          "/home/rosako/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Andrew\\Desktop\\spider\\NuGet.Config",
+          "C:\\Users\\Andrew\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -182,35 +186,37 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.202/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "/mnt/hdd/src/spider/src/spider.HttpApi/spider.HttpApi.csproj": {
+    "C:\\Users\\Andrew\\Desktop\\spider\\src\\spider.HttpApi\\spider.HttpApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/mnt/hdd/src/spider/src/spider.HttpApi/spider.HttpApi.csproj",
+        "projectUniqueName": "C:\\Users\\Andrew\\Desktop\\spider\\src\\spider.HttpApi\\spider.HttpApi.csproj",
         "projectName": "spider.HttpApi",
-        "projectPath": "/mnt/hdd/src/spider/src/spider.HttpApi/spider.HttpApi.csproj",
-        "packagesPath": "/home/rosako/.nuget/packages/",
-        "outputPath": "/mnt/hdd/src/spider/src/spider.HttpApi/obj/",
+        "projectPath": "C:\\Users\\Andrew\\Desktop\\spider\\src\\spider.HttpApi\\spider.HttpApi.csproj",
+        "packagesPath": "C:\\Users\\Andrew\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Andrew\\Desktop\\spider\\src\\spider.HttpApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/mnt/hdd/src/spider/NuGet.Config",
-          "/home/rosako/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Andrew\\Desktop\\spider\\NuGet.Config",
+          "C:\\Users\\Andrew\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "/mnt/hdd/src/spider/src/spider.Application.Contracts/spider.Application.Contracts.csproj": {
-                "projectPath": "/mnt/hdd/src/spider/src/spider.Application.Contracts/spider.Application.Contracts.csproj"
+              "C:\\Users\\Andrew\\Desktop\\spider\\src\\spider.Application.Contracts\\spider.Application.Contracts.csproj": {
+                "projectPath": "C:\\Users\\Andrew\\Desktop\\spider\\src\\spider.Application.Contracts\\spider.Application.Contracts.csproj"
               }
             }
           }
@@ -266,7 +272,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.202/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }

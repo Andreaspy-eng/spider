@@ -1,7 +1,7 @@
 using System;
 using Volo.Abp.Domain.Entities;
 
-namespace spider.Domain.Products;
+namespace spider.Products;
 
 public class Product : Entity<Guid>
 {
