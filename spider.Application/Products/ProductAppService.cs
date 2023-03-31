@@ -2,6 +2,7 @@ using Newtonsoft.Json;
 using spider.AdvantageModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Formats.Asn1;
 using System.IO;
 using System.Linq;
@@ -22,7 +23,7 @@ public class ProductAppService :
         CrUpProductDto>, //Used to create/update a book
     IProductAppService //implement the IBookAppService
 {
-    public async Task<IEnumerable<InvoiceHeader>> getInvoices()
+    public static IEnumerable<InvoiceHeader> getInvoices()
     {
         using (HttpClient Client = new())
         {
