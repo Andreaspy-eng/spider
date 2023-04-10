@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using spider.AdvantageModels;
+using spider.YandexApi;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
@@ -25,8 +26,15 @@ public class ProductAppService :
 {
     public static IEnumerable<InvoiceHeader> getInvoices()
     {
+        using (StreamWriter sw = new StreamWriter(@"C:\Users\Andrew\Desktop\api.txt"))
+        using (JsonWriter writer = new JsonTextWriter(sw))
+        {
+            JsonSerializer serializer = new();
+            serializer.Serialize(writer, new QueryCreateRoteList());
+        }
         using (HttpClient Client = new())
         {
+
             Client.BaseAddress = new Uri("http://192.168.1.222:8079/advantage/");
             using (Stream s = Client.GetStreamAsync("api/Invoices/all?Start=2023-01-04&End=2023-01-04&Codes=Ò-ð").Result)
             using (StreamReader sr = new StreamReader(s))
@@ -36,6 +44,7 @@ public class ProductAppService :
                 var InvoiceList = serializer.Deserialize<IEnumerable<InvoiceHeader>>(reader);
                 return InvoiceList;
             };
+
         }
     }
     public ProductAppService(IRepository<Product, Guid> repository)
