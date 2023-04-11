@@ -12,6 +12,6 @@ namespace spider.YandexApi
         public List<Locations> locations { get; set; }
         public List<Options> options { get; set; }
 
-        public static QueryCreateRoteList test() { return default; }
+        //public static QueryCreateRoteList test() { return default; }
     }
 }
