@@ -1,5 +1,4 @@
-using System.Collections.Generic;
-
+namespace spider.YandexApi.Result;
 public class Subcost
     {
         public string name { get; set; }
