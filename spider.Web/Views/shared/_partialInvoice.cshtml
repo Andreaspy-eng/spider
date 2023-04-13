@@ -1,0 +1,21 @@
+﻿@model IEnumerable<spider.AdvantageModels.InvoiceHeader>;
+
+<div class="container">
+    <div class="row row-cols-2 row-cols-md-3 g-4">
+
+        @foreach (var item in Model)
+        {
+             <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.CounterpartyAddress</h5>
+                            <p class="card-text">@item.CounterpartyName</p>
+                            <a href="#" class="btn btn-primary">Перейти куда-нибудь</a>
+                        </div>
+                    </div>
+             </div>
+        }
+    </div>
+</div>
+                   
+
