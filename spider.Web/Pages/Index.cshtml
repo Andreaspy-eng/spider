@@ -20,7 +20,12 @@
             <form method="post" asp-page="IndexModel" asp-page-handler="Invoices">
                 <button class="btn btn-outline-primary" style="position:fixed">Получить накладные</button>
             </form>
+            <form method="post" asp-page="IndexModel" asp-page-handler="Routes">
+                <button class="btn btn-outline-secondary" style="position:fixed">Пока НЗ</button>
+            </form>
         </div>
+
+        
         @await Html.PartialAsync("_partialInvoice",Model.invoices)
         
     </div>

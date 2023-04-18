@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
+using YandexRouting;
 
 namespace spider.Web;
 
@@ -34,6 +35,7 @@ public class Program
                 .UseAutofac()
                 .UseSerilog();
             builder.Services.AddHttpClient<IAdvantageService, AdvantageService>();
+            builder.Services.AddHttpClient<IYandexRoutingService, YandexRoutingService>();
             await builder.AddApplicationAsync<spiderWebModule>();
             var app = builder.Build();
             await app.InitializeApplicationAsync();
