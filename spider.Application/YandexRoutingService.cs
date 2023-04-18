@@ -2,8 +2,11 @@
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using spider;
+using spider.AdvantageModels;
 using spider.YandexApi;
+using spider.YandexApi.Result;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -41,6 +44,45 @@ namespace YandexRouting
             _requestId = null;
         }
 
+        public QueryCreateRouteList createQueryToApi(IEnumerable<Counterparty> Clients, IEnumerable<Car> cars) 
+        {
+            var query = new QueryCreateRouteList();
+            query.depot = new Depot()
+            {
+                id = "1",
+                point = new Point()
+                {
+                    lat = 55.733996,
+                    lon = 37.588472
+                },
+                time_window = "07:00-18:00"
+            };
+
+            query.vehicles = new List<Vehicles>()
+            {
+                new Vehicles(){ id = "1"},
+                 new Vehicles(){ id = "2"},
+                  new Vehicles(){ id = "3"}
+            };
+
+            query.options = new() { };
+
+            var locations = new List<Locations>();
+            foreach(var client in Clients) 
+            {
+                var lacalka=new Locations();
+                lacalka.id = client.codeFromBase;
+                lacalka.point = new Point()
+                {
+                    lat = client.latitude,
+                    lon = client.longitude
+                };
+                lacalka.time_window = "09:00-18:00";
+                locations.Add( lacalka );
+            }
+            query.locations = locations;
+            return query;
+        }
         public async Task<YandexRoutingResult> GetResultAsync(QueryCreateRouteList request)
         {
             ClearAllSavedData();
