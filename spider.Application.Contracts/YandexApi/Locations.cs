@@ -9,14 +9,14 @@ namespace spider.YandexApi;
         {
             public string id { get; set; }
             public Point point { get; set; }
-            public int shared_service_duration_s { get; set; }
+/*            public int shared_service_duration_s { get; set; }
             public int service_duration_s { get; set; }
 
-            public Shipment shipment_size{ get; set; }
+            public Shipment shipment_size{ get; set; }*/
             public string time_window { get; set; }
-            public Penalty penalty { get; set; }
+           /* public Penalty penalty { get; set; }
             public string type { get; set; }
-            public List<string> load_types { get; set; }         
+            public List<string> load_types { get; set; }       */  
         }
 
         public class Penalty

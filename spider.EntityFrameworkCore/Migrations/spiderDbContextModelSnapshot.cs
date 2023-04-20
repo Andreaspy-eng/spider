@@ -1648,7 +1648,7 @@ namespace spider.Migrations
                     b.ToTable("AbpTenantConnectionStrings", (string)null);
                 });
 
-            modelBuilder.Entity("spider.Domain.Products.Product", b =>
+            modelBuilder.Entity("spider.Products.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
@@ -1687,6 +1687,24 @@ namespace spider.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AppProducts", (string)null);
+                });
+
+            modelBuilder.Entity("spider.Yandex.ResultToken", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("yandex_id")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppResultTokens", (string)null);
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLogAction", b =>

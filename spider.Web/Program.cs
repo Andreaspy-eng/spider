@@ -35,6 +35,8 @@ public class Program
                 .UseAutofac()
                 .UseSerilog();
             builder.Services.AddHttpClient<IAdvantageService, AdvantageService>();
+            builder.Services.AddHttpClient<ILocarusService, LocarusService>();
+            builder.Services.AddHttpClient<ICounterpartyService, CounterpartyService>();
             builder.Services.AddHttpClient<IYandexRoutingService, YandexRoutingService>();
             await builder.AddApplicationAsync<spiderWebModule>();
             var app = builder.Build();

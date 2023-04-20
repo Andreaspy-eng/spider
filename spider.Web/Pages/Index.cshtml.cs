@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.IdentityModel.Tokens;
 using spider.AdvantageModels;
@@ -11,13 +12,25 @@ public class IndexModel : spiderPageModel
 {
     private readonly IAdvantageService _advantage;
     private readonly IYandexRoutingService _yandex;
+    private readonly ILocarusService _locarus;
     public IEnumerable<InvoiceHeader> invoices;
     private IEnumerable<Counterparty> _counterparties;
-    public IndexModel(IAdvantageService advantage, IYandexRoutingService yandex)
+
+    public IndexModel(IEnumerable<InvoiceHeader> invoices)
+    {
+        this.invoices = invoices;
+    }
+
+    public IndexModel(
+        IAdvantageService advantage,
+        ICounterpartyService counterparty,
+        ILocarusService locarus,
+        IYandexRoutingService yandex)
     {
         _advantage = advantage;
         _yandex = yandex;
-        _counterparties=_advantage.getCounterparties();
+        _locarus = locarus;
+        _counterparties= counterparty.getCounterparties();
     }
 
 
@@ -29,13 +42,14 @@ public class IndexModel : spiderPageModel
     public IActionResult OnPostInvoices()
     {
         invoices = _advantage.getInvoices();
-        return Page();
+        return new IndexModel(invoices).Page();
     }
 
     public IActionResult OnPostRoutes()
     {
         List<Counterparty> FilteredCounterpaties= new List<Counterparty>();
-        if(invoices is not null)
+        //invoices = _advantage.getInvoices();
+        if (invoices is not null)
         {
             foreach(var counteraprty in _counterparties) 
             {
@@ -45,9 +59,10 @@ public class IndexModel : spiderPageModel
                 }
             }
         }
-        var cars = _advantage.GetCars();
+        var cars = _locarus.GetCars().Take(2);
         var query = _yandex.createQueryToApi(FilteredCounterpaties, cars);
-        var routes = _yandex.GetResultAsync(query);
+        var CreatedTask = _yandex.CreateTask(query);
+        var routes = _yandex.GetLastResult();
         return Page();
     }
 }

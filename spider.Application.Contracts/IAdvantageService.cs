@@ -8,7 +8,5 @@ namespace spider
     public interface IAdvantageService
     {
         public IEnumerable<InvoiceHeader> getInvoices();
-        public IEnumerable<Counterparty> getCounterparties();
-        public IEnumerable<Car> GetCars();
     }
 }

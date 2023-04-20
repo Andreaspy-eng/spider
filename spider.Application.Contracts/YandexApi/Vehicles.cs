@@ -12,10 +12,14 @@ namespace spider.YandexApi
 
         public Shipment capacity { get; set; }
 
-        public string return_to_depot { get; set; }
+        public bool return_to_depot { get; set; }
 
-        [JsonProperty("shifts.0.time_window")]
-        public string shifts0time_window { get; set; }
+        public Shifts[] shifts { get; set; }
     }
 
+    public class Shifts
+    {
+        public object id { get; set; }
+        public string time_window { get; set; }
+    }
 }

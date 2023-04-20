@@ -1,5 +1,19 @@
 ﻿@page
 @model spider.Web.Pages.RouteModel
 @{
-
+    <h1 class="text-center">Поездка</h1>
+    <br />
+    <div class="container">
+        <div class="row row-cols-4 g-2">
+            @foreach (var item in Model.route.route)
+            {
+                if (item.node.type == "depot") continue;
+                <div class="col">
+                    <a target="_blank" class="btn btn-primary">
+                        @Model.clients.Where(x=>x.codeFromBase==@item.node.value.id).FirstOrDefault().name
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
 }

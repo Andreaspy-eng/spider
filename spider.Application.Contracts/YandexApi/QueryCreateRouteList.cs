@@ -10,7 +10,7 @@ namespace spider.YandexApi
         public Depot depot { get; set; }
         public List<Vehicles> vehicles { get; set; }
         public List<Locations> locations { get; set; }
-        public List<Options> options { get; set; }
+        public Options options { get; set; }
 
         //public static QueryCreateRoteList test() { return default; }
     }

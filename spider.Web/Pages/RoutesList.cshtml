@@ -1,0 +1,26 @@
+﻿@page
+@model spider.Web.Pages.RoutesListModel
+@{
+    //<a class="btn btn-primary" asp-page="Route" asp-page-handler="OnGet" asp-route-waybill=@Json.Serialize(Model.routes.result.routes[i])>@item.id</a>
+   //Html.ActionLink(item.id, "OnGetRoute", "RoutesList",new(){id=@i})
+    int i = 0;
+    if(Model.routes.result.vehicles is not null)
+    {
+        <h1 class="text-center">Путевые листы</h1>
+        <br />
+        <div class="container">
+            <div class="row row-cols-4 g-2">
+                @foreach (var item in Model.routes.result.vehicles)
+                {
+                    <div class="col">
+                        <form method="post" asp-page="RoutesList" asp-route-id=@i asp-page-handler="Routes">
+                            <button class="btn btn-outline-primary">@item.id</button>
+                       </form>
+                    </div>
+                    i++;
+                }
+            </div>
+        </div>
+
+    }
+}
