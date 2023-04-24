@@ -1,0 +1,14 @@
+﻿@page
+@model spider.Web.Pages.HistoryModel
+@{
+    <h2 class="text-center">История запросов</h2>
+    <br />
+    <div class="row row-cols-4 g-2">
+        @foreach(var item in Model.Results)
+        {
+            <div class="col">
+                <a href="https://yandex.ru/courier/companies/31415/depots/all/mvrp/@item.yandex_id" class="btn btn-outline-primary" target="_blank">@item.CreationDate.ToString("HH:mm dd-MM-yyyy")</a>
+            </div>
+        }
+    </div>
+}

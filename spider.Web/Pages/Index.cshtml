@@ -8,28 +8,43 @@
 @inject ICurrentUser CurrentUser
 
 <div class="container">
-    <div class="p-5 text-center">
-        <h1>Ура, эта срань заработала</h1>
+    <div class="p-4 text-center">
+        <h2>
+            <i>
+                «Деньги дороги, жизнь человеческая дороже, а время дороже всего»
+            </i>   
+        </h2>
         <br/>
-        @*@if (!CurrentUser.IsAuthenticated)
-        {
-            <a abp-button="Primary" href="~/Account/Login"><i class="fa fa-sign-in"></i> @L["Login"]</a>
-        }*@
 
         <div class="col float-end">
             <form method="post" asp-page="IndexModel" asp-page-handler="Invoices">
-                <button class="btn btn-outline-primary" style="position:fixed">Получить накладные</button>
+                <button class="btn btn-outline-primary" style="position:fixed">
+                    Загрузить список машин
+                    </button>
             </form>
+
             <br /><br />
-            <a href="./RoutesList" class="btn btn-outline-success" style="position:fixed">Последний результат</a>
+
+            <a href="./RoutesList" class="btn btn-outline-success" style="position:fixed">
+                Последний результат
+            </a>
+
             <br /><br />
-            <form method="post" asp-page="IndexModel" asp-page-handler="Routes">
-                <button class="btn btn-outline-secondary" style="position:fixed">Пока НЗ</button>
-            </form>
+
+            <button class="btn btn-outline-warning" style="position:fixed" type="submit" form="table">
+                Отправка в Яндекс
+            </button>
+
+            <br /><br />
+
+            <a href="./History"  class="btn btn-outline-info" style="position:fixed">
+                История запросов
+            </a>
+
         </div>
 
         
-        @await Html.PartialAsync("_partialInvoice",Model.invoices)
+        @await Html.PartialAsync("_partialCars",Model._cars)
         
     </div>
 </div>

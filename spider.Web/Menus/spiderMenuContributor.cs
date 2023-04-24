@@ -23,31 +23,6 @@ public class spiderMenuContributor : IMenuContributor
         var administration = context.Menu.GetAdministration();
         var l = context.GetLocalizer<spiderResource>();
 
-        context.Menu.Items.Insert(
-            0,
-            new ApplicationMenuItem(
-                spiderMenus.Home,
-                l["Menu:Home"],
-                "~/",
-                icon: "fas fa-home"
-            )
-        );
-
-        context.Menu.Items.Insert(
-            1,
-            new ApplicationMenuItem(
-                spiderMenus.Home,
-                l["Handbook"],
-                icon: "fas fa-book"
-            ).AddItem(
-        new ApplicationMenuItem(
-            "spider.Products",
-            l["Products"],
-            url: "/Products"
-        )
-    )
-        );
-
         if (MultiTenancyConsts.IsEnabled)
         {
             administration.SetSubItemOrder(TenantManagementMenuNames.GroupName, 1);

@@ -6,5 +6,5 @@ namespace spider.Web;
 [Dependency(ReplaceServices = true)]
 public class spiderBrandingProvider : DefaultBrandingProvider
 {
-    public override string AppName => "eSalesMVC";
+    public override string AppName => "=Логистика=";
 }

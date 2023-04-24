@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using spider.AdvantageModels;
 using spider.YandexApi.Result;
+using StranglerUtilityLib.Print;
 using System.Collections.Generic;
 
 namespace spider.Web.Pages
@@ -21,16 +22,20 @@ namespace spider.Web.Pages
 
         [BindProperty(Name="route", SupportsGet = true)]
         public int hui { get; set;}
-        public Routes route { get; set; }
+        public List<Route> route { get; set; }
 
         public void OnGet()
         {
-            route = _yandex.GetLastResult().result.routes[hui];
+            var res = _yandex.GetLastResult();
+            route = res.result.routes[hui].route;
         }
 
         public void OnGetDisplay()
         {
-            route = _yandex.GetLastResult().result.routes[hui];
+            var res = _yandex.GetLastResult();
+            route = res.result.routes[hui].route;
+            //var v = new YandexRouteListPrintForm(res,  clients);
+            //v.VirtualPrint();
         }
 
     }

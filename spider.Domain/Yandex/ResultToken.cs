@@ -9,6 +9,7 @@ namespace spider.Yandex
 {
     public class ResultToken:Entity<Guid>
     {
+        public DateTime CreationDate { get; set; }
         public string yandex_id { get; set; }
         public string message { get; set; }
     }

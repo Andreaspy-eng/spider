@@ -2,19 +2,31 @@
 @model spider.Web.Pages.RoutesListModel
 @{
     //<a class="btn btn-primary" asp-page="Route" asp-page-handler="OnGet" asp-route-waybill=@Json.Serialize(Model.routes.result.routes[i])>@item.id</a>
-   //Html.ActionLink(item.id, "OnGetRoute", "RoutesList",new(){id=@i})
+    //Html.ActionLink(item.id, "OnGetRoute", "RoutesList",new(){id=@i})
     int i = 0;
-    if(Model.routes.result.vehicles is not null)
+    if (Model.routes.message == "Task is running and available for polling")
+    {
+        <div class="estimate">
+            <h3>Задача ещё не решена, сколько ждать можно узнать ниже</h3>
+            <a href="https://yandex.ru/courier/companies/31415/depots/all/mvrp/@Model.routes.id" class="btn btn-outline-warning" target="_blank">Перейти в Яндекс</a>
+        </div>
+    }
+    if(Model.routes.result is not null)
     {
         <h1 class="text-center">Путевые листы</h1>
-        <br />
+        
+            <br />
+            <div class="col float-end">
+            <a href="https://yandex.ru/courier/companies/31415/depots/all/mvrp/@Model.routes.id" class="btn btn-outline-warning" target="_blank">Перейти в Яндекс</a>
+                </div>
         <div class="container">
             <div class="row row-cols-4 g-2">
-                @foreach (var item in Model.routes.result.vehicles)
+                
+                @foreach (var item in Model.routes.result.routes)
                 {
                     <div class="col">
                         <form method="post" asp-page="RoutesList" asp-route-id=@i asp-page-handler="Routes">
-                            <button class="btn btn-outline-primary">@item.id</button>
+                            <button class="btn btn-outline-primary">@item.vehicle_id</button>
                        </form>
                     </div>
                     i++;

@@ -1694,6 +1694,11 @@ namespace spider.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreationDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
                     b.Property<string>("message")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

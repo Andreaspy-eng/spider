@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.SignalR;
 using Newtonsoft.Json;
 using Polly;
 using spider.YandexApi;
@@ -22,21 +24,17 @@ namespace spider.Web.Pages
         public void OnGet()
         {
             routes = _yandex.GetLastResult();
+            if (routes is null) routes = new();
         }
 
-        /*public void OnGetRoute(int id)
+        public void OnGetDisplay()
         {
-            Route(id);
-        }*/
+            routes = _yandex.GetLastResult();     
+        }
 
         public IActionResult OnPostRoutes(int id)
         {
-            routes = _yandex.GetLastResult();
-            var b = routes.result.routes[id];
             return RedirectToPage("/Route", "Display", new { route = id });
         }
-        //public void OnPostRoutes(Routes waybill) { 
-            
-        //}
     }
 }

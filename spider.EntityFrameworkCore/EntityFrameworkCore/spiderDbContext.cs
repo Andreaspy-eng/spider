@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using spider.Products;
 using spider.Yandex;
+using System;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
@@ -90,6 +91,7 @@ public class spiderDbContext :
         {
             b.ToTable(spiderConsts.DbTablePrefix + "ResultTokens", spiderConsts.DbSchema);
             b.Property(x=>x.yandex_id).IsRequired();
+            b.Property(x => x.CreationDate).HasDefaultValueSql("getdate()");
             b.ConfigureByConvention();
         });
 

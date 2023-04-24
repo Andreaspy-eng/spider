@@ -42,7 +42,7 @@ namespace spider
 
                 foreach (var Car in CarList)
                 {
-                    if (regex.IsMatch(Car.number) && Car.number!= "Н322УВ37" && Car.number!= "О016АТ37") CarResult.Add(Car);
+                    if (regex.IsMatch(Car.number) /*&& Car.number!= "Н322УВ37" && Car.number!= "О016АТ37"*/) CarResult.Add(Car);
                 }                
                 return CarResult;
             };

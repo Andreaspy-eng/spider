@@ -13,12 +13,13 @@ public class IndexModel : spiderPageModel
     private readonly IAdvantageService _advantage;
     private readonly IYandexRoutingService _yandex;
     private readonly ILocarusService _locarus;
-    public IEnumerable<InvoiceHeader> invoices;
+    public IEnumerable <Car> _cars;
+    private IEnumerable <InvoiceHeader> _invoices;
     private IEnumerable<Counterparty> _counterparties;
 
-    public IndexModel(IEnumerable<InvoiceHeader> invoices)
+    public IndexModel(IEnumerable<Car> cars)
     {
-        this.invoices = invoices;
+        this._cars = cars;
     }
 
     public IndexModel(
@@ -30,37 +31,41 @@ public class IndexModel : spiderPageModel
         _advantage = advantage;
         _yandex = yandex;
         _locarus = locarus;
-        _counterparties= counterparty.getCounterparties();
+        _cars = _locarus.GetCars();
+        _counterparties = counterparty.getCounterparties();
     }
 
 
     public void OnGet()
     {
-        invoices = new List<InvoiceHeader>();
+        _cars = new List<Car>();
     }
 
     public IActionResult OnPostInvoices()
     {
-        invoices = _advantage.getInvoices();
-        return new IndexModel(invoices).Page();
+        _cars = _locarus.GetCars();
+        return new IndexModel(_cars).Page();
     }
 
-    public IActionResult OnPostRoutes()
+    public IActionResult OnPostRoutes(string[] checkboxes)
     {
-        List<Counterparty> FilteredCounterpaties= new List<Counterparty>();
-        //invoices = _advantage.getInvoices();
-        if (invoices is not null)
+        List<Counterparty> FilteredCounterpaties = new() { };
+        List <Car> FilteredCars = new() { };
+        _cars = _locarus.GetCars();
+        _invoices = _advantage.getInvoices();
+        if (_invoices is not null)
         {
             foreach(var counteraprty in _counterparties) 
             {
-                if (invoices.Any(x => x.CounterpartyId == counteraprty.codeFromBase))
+                if (_invoices.Any(x => x.CounterpartyId == counteraprty.codeFromBase))
                 {
                     FilteredCounterpaties.Add(counteraprty);
                 }
             }
+            FilteredCars=_cars.Where(x => checkboxes.Contains(x.imei)).ToList();
+            if (checkboxes.Length == 0) FilteredCars = _cars.DistinctBy(x => x.number).ToList();
         }
-        var cars = _locarus.GetCars().Take(2);
-        var query = _yandex.createQueryToApi(FilteredCounterpaties, cars);
+        var query = _yandex.createQueryToApi(FilteredCounterpaties, FilteredCars);
         var CreatedTask = _yandex.CreateTask(query);
         var routes = _yandex.GetLastResult();
         return Page();

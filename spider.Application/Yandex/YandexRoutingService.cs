@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using Org.BouncyCastle.Math.EC.Rfc7748;
 using spider;
 using spider.AdvantageModels;
 using spider.Yandex;
@@ -50,11 +51,11 @@ namespace YandexRouting
             query.depot = new Depot()
             {
                 id = "1",
-                name= "warehouse",
+                name= "СКЛАД",
                 point = new Point()
                 {
-                    lat = 55.733996,
-                    lon = 37.588472
+                    lat = 56.989620,
+                    lon = 41.047034
                 },
                 time_window = "07:00-18:00"
             };
@@ -64,12 +65,12 @@ namespace YandexRouting
             {
                 var lacalka = new Vehicles();
                 lacalka.id = car.number;
-                lacalka.return_to_depot = false;
+                lacalka.return_to_depot = true;
                 lacalka.shifts =new Shifts[]
                 {   new Shifts()
                     {
                         id = "0",
-                        time_window= "08:00:00-19:00:00"
+                        time_window= "06:00:00-17:00:00"
                     }                                               //FIXME Спросить время работы водителей
                 };
                 lacalka.name = car.model;
@@ -115,10 +116,16 @@ namespace YandexRouting
 
         public YandexRoutingResult GetLastResult()
         {
-            var Hui = new PagedAndSortedResultRequestDto(){ MaxResultCount = 100,SkipCount=0};
-            string task = _resultTokenService.GetListAsync(Hui).Result.Items.FirstOrDefault().yandex_id;
+            var Hui = new PagedAndSortedResultRequestDto();
+            string task = _resultTokenService.GetListAsync(Hui).Result.Items.OrderBy(x=>x.CreationDate).Last().yandex_id;
             var respond = GetResult(task);
             return respond;
+        }
+
+        public IEnumerable<ResultTokenDTO> GetAll()
+        {
+            var Hui = new PagedAndSortedResultRequestDto();
+            return _resultTokenService.GetListAsync(Hui).Result.Items;
         }
 
         public YandexRoutingTaskCreatedResponse CreateTask(QueryCreateRouteList query)
@@ -136,7 +143,7 @@ namespace YandexRouting
             if (response.IsSuccessStatusCode)
             {
                 var res = response.Content.ReadFromJsonAsync<YandexRoutingTaskCreatedResponse>().Result;
-                var a=_resultTokenService.CreateAsync(new CrUpResultToken() { yandex_id = _requestId, message = res.message }).Result;
+                var a=_resultTokenService.CreateAsync(new CrUpResultToken() { yandex_id = res.id, message = res.message }).Result;
                 return res;
             }
             else

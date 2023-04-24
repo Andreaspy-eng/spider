@@ -13,11 +13,13 @@ namespace spider.YandexApi
         private static readonly DateTime _epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
         public double completed { get; set; }
+        public double estimate { get; set; }
         public double calculated { get; set; }
         public double started { get; set; }
         public double queued { get; set; }
         public double matrix_downloaded { get; set; }
 
+        public DateTime estimateDateTimeUTC { get { return ConvertFromUnixDateStampt(completed); } }
         public DateTime completedDateTimeUTC { get { return ConvertFromUnixDateStampt(completed); } }
         public DateTime calculatedDateTimeUTC { get { return ConvertFromUnixDateStampt(calculated); } }
         public DateTime startedDateTimeUTC { get { return ConvertFromUnixDateStampt(started); } }
