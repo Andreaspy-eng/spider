@@ -15,17 +15,22 @@
     {
         <h1 class="text-center">Путевые листы</h1>
         
-            <br />
-            <div class="col float-end">
+            <br /> //FIXME
+
+        <div class="col float-end">
             <a href="https://yandex.ru/courier/companies/31415/depots/all/mvrp/@Model.routes.id" class="btn btn-outline-warning" target="_blank">Перейти в Яндекс</a>
-                </div>
+            <form method="post" asp-page="RoutesList" asp-page-handler="TextFile">
+                <button class="btn btn-outline-primary">Создать файл</button>
+            </form>
+        </div>
+
         <div class="container">
             <div class="row row-cols-4 g-2">
                 
                 @foreach (var item in Model.routes.result.routes)
                 {
                     <div class="col">
-                        <form method="post" asp-page="RoutesList" asp-route-id=@i asp-page-handler="Routes">
+                       <form method="post" asp-page="RoutesList" asp-route-id=@i asp-page-handler="Routes">
                             <button class="btn btn-outline-primary">@item.vehicle_id</button>
                        </form>
                     </div>

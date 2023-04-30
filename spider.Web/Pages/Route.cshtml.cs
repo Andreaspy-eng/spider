@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using spider.AdvantageModels;
 using spider.YandexApi.Result;
-using StranglerUtilityLib.Print;
 using System.Collections.Generic;
 
 namespace spider.Web.Pages

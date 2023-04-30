@@ -33,7 +33,7 @@ namespace spider
             string thisDay = DateTime.UtcNow.ToString("yyyy-MM-dd");
             string beforeDay = DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd");
 
-            using (Stream s = _advantageClient.GetStreamAsync(_config["Advantage:Invoices"] + $"?Start={beforeDay}&End={thisDay}&Codes=Т-р").Result)
+            using (Stream s = _advantageClient.GetStreamAsync(_config["Advantage:Invoices"] + $"?Start={beforeDay}&End={thisDay}&Codes=Т-р&Codes=Т-Р").Result)
             using (StreamReader sr = new StreamReader(s))
             using (JsonReader reader = new JsonTextReader(sr))
             {
