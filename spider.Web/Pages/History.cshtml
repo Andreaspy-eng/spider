@@ -1,14 +1,32 @@
 ﻿@page
 @model spider.Web.Pages.HistoryModel
 @{
-    <h2 class="text-center">История запросов</h2>
+    <h2 class="text-center">Запросы</h2>
     <br />
-    <div class="row row-cols-4 g-2">
-        @foreach(var item in Model.Results)
-        {
-            <div class="col">
-                <a href="https://yandex.ru/courier/companies/31415/depots/all/mvrp/@item.yandex_id" class="btn btn-outline-primary" target="_blank">@item.CreationDate.ToString("HH:mm dd-MM-yyyy")</a>
+    <div class="container">
+        <div class="row row-cols-2 row-cols-md-3 g-4">
+            @foreach(var item in Model.Results)
+            {
+                <div class="col">
+                    <p class="text-center mb-1">
+                        <a class="btn btn-outline-secondary" 
+                            href="/RoutesList?id=@item.yandex_id&handler=Display">Путевой лист
+                            от <b>@item.CreationDate.ToString("dd-MM-yyyy")</b>
+                            <i>@item.CreationDate.ToString("HH:mm")</i>
+                        </a>
+                    </p>
+                    <div class="row ">
+                        <div class="col text-center">
+                            <a href="https://yandex.ru/courier/companies/31415/depots/all/mvrp/@item.yandex_id" 
+                            class="btn btn-warning" target="_blank">В Яндекс</a>
+                        </div>
+                        <div class="col text-center">
+                            <a class=" btn btn-primary" 
+                            href="/ChildTasks?id=@item.yandex_id&handler=Display">История</a>
+                        </div>
+                    </div>
             </div>
-        }
+            }
+        </div>
     </div>
 }

@@ -35,9 +35,9 @@ namespace spider.Web.Pages
             if (routes is null) routes = new();
         }
 
-        public void OnGetDisplay()
+        public void OnGetDisplay(string id)
         {
-            routes = _yandex.GetLastResult();     
+            routes = _yandex.GetResult(id);     
         }
 
         public IActionResult OnPostRoutes(int id)
@@ -45,9 +45,9 @@ namespace spider.Web.Pages
             return RedirectToPage("/Route", "Display", new { route = id });
         }
 
-        public void OnPostTextFile()
+        public void OnPostTextFile(string id)
         {
-            routes = _yandex.GetLastResult();
+            routes = _yandex.GetResult(id);     
             List<string> numbers = new ();
             List<string> points = new();
             int i = 1;
@@ -59,7 +59,7 @@ namespace spider.Web.Pages
                 }
                 i++;
             }
-            BushFileService.createBushFile(numbers,"тестоваяПапка");
+            BushFileService.createBushFile(numbers,"пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
         }
     }
 }

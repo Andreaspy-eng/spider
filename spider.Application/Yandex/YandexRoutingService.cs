@@ -1,24 +1,19 @@
 ﻿using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using Org.BouncyCastle.Math.EC.Rfc7748;
 using spider;
 using spider.AdvantageModels;
 using spider.Yandex;
 using spider.YandexApi;
-using spider.YandexApi.Result;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.Runtime.ConstrainedExecution;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
-
+using Serilog;
 namespace YandexRouting
 {
 
@@ -26,7 +21,6 @@ namespace YandexRouting
     {
         private IConfiguration _config;
         private IResultTokenService _resultTokenService;
-        private string _requestId;
         private HttpClient _client;
 
         /*private static readonly JsonSerializerOptions jsonSerializerOptions = new JsonSerializerOptions
@@ -34,14 +28,16 @@ namespace YandexRouting
             PropertyNameCaseInsensitive = false
         };*/
 
-        public YandexRoutingService(IConfiguration config, HttpClient client, IResultTokenService resultTokenService)
+        public YandexRoutingService(
+            IConfiguration config,
+            HttpClient client,
+            IResultTokenService resultTokenService)
         {
             _config = config;
             _resultTokenService=resultTokenService;
             client.BaseAddress = new Uri(_config["Yandex:Main"]!);
             client.DefaultRequestHeaders.Add("Accept", "application/json");
             _client = client;
-
         }
 
 
@@ -116,10 +112,21 @@ namespace YandexRouting
 
         public YandexRoutingResult GetLastResult()
         {
-            var Hui = new PagedAndSortedResultRequestDto();
-            string task = _resultTokenService.GetListAsync(Hui).Result.Items.OrderBy(x=>x.CreationDate).Last().yandex_id;
-            var respond = GetResult(task);
-            return respond;
+            try
+            {
+                var Hui = new PagedAndSortedResultRequestDto();
+                var task = _resultTokenService.GetListAsync(Hui).Result
+                    .Items.OrderBy(x=>x.CreationDate)
+                    .Last().yandex_id;
+                var respond = GetResult(task);
+                return respond;
+            }
+            catch(Exception e)
+            {
+                Log.Error($"Не удалось получить последний результат \n{e.Message}");
+                return null;
+            }
+            
         }
 
         public IEnumerable<ResultTokenDTO> GetAll()
@@ -151,19 +158,46 @@ namespace YandexRouting
                 return default;
             }
         }
-
-
+        
         public YandexRoutingResult GetResult(string taskGuid)
         {
+            CheckTaskGuid(taskGuid);
+            GetLastModificationOfTaskGuid(taskGuid);
             var path = _config["Yandex:GetResult"] + taskGuid;
+            return GetData<YandexRoutingResult>(path);
+        }
+
+        public List<ChildTask> GetChildTasks(string taskGuid)
+        {
+            CheckTaskGuid(taskGuid);
+            var path = @$"{_config["Yandex:GetChildTasks"]}?apikey={_config["Yandex:Key"]}&parent_task_id={taskGuid}";
+            return GetData<List<ChildTask>>(path);
+        }
+
+        private T GetData <T>(string path)
+        {
             using (Stream s = _client.GetStreamAsync(path).Result)
             using (StreamReader sr = new StreamReader(s))
             using (JsonReader reader = new JsonTextReader(sr))
             {
                 JsonSerializer serializer = new();
-                var InvoiceList = serializer.Deserialize<YandexRoutingResult>(reader);
-                return InvoiceList;
+                var result = serializer.Deserialize<T>(reader);
+                return result;
             };
+        }
+
+        private string GetLastModificationOfTaskGuid(string taskGuid)
+        {
+            CheckTaskGuid(taskGuid);
+            var list=GetChildTasks(taskGuid);
+            if(list is null || list.Count<1)return taskGuid;
+            else return list.Last().task_id;
+        }
+        
+        private void CheckTaskGuid(string taskGuid)
+        {
+            if(taskGuid is null) throw new Exception("ИД задачи содержит NULL");
+            if(taskGuid.Trim()=="") throw new Exception("ИД задачи пустой");
         }
     }
 }
