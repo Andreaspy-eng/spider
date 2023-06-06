@@ -42,5 +42,17 @@ namespace spider
                 return InvoiceList;
             };
         }
+
+        public IEnumerable<Driver> GetDrivers()
+        {
+            using (Stream s = _advantageClient.GetStreamAsync(_config["Advantage:Drivers"]).Result)
+            using (StreamReader sr = new StreamReader(s))
+            using (JsonReader reader = new JsonTextReader(sr))
+            {
+                JsonSerializer serializer = new();
+                var result = serializer.Deserialize<IEnumerable<Driver>>(reader);
+                return result;
+            };
+        }
     }
 }

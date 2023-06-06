@@ -26,6 +26,7 @@ namespace YandexRouting
     {
         private IConfiguration _config;
         private IResultTokenService _resultTokenService;
+        private IAssignedRoutesService _assignedRoutesService;
         private string _requestId;
         private HttpClient _client;
 
@@ -34,14 +35,18 @@ namespace YandexRouting
             PropertyNameCaseInsensitive = false
         };*/
 
-        public YandexRoutingService(IConfiguration config, HttpClient client, IResultTokenService resultTokenService)
+        public YandexRoutingService(
+            IConfiguration config,
+            HttpClient client,
+            IResultTokenService resultTokenService,
+            IAssignedRoutesService assignedRoutesService)
         {
             _config = config;
-            _resultTokenService=resultTokenService;
+            _resultTokenService = resultTokenService;
             client.BaseAddress = new Uri(_config["Yandex:Main"]!);
             client.DefaultRequestHeaders.Add("Accept", "application/json");
             _client = client;
-
+            _assignedRoutesService = assignedRoutesService;
         }
 
 
@@ -119,6 +124,20 @@ namespace YandexRouting
             var Hui = new PagedAndSortedResultRequestDto();
             string task = _resultTokenService.GetListAsync(Hui).Result.Items.OrderBy(x=>x.CreationDate).Last().yandex_id;
             var respond = GetResult(task);
+            if(respond != null )
+            {
+                var pizda = new PagedAndSortedResultRequestDto() { MaxResultCount=1000};
+                var assigned = _assignedRoutesService
+                    .GetListAsync(pizda).Result.Items.Where(x => x.yandex_id == respond.id);
+                if(assigned != null )
+                {
+                    foreach( var route in assigned )
+                    {
+                        respond.result.routes.Find(x => x.vehicle_id == route.vehicle_id)
+                            .vehicle_driver = route.driver_name;
+                    }
+                }
+            }
             return respond;
         }
 
@@ -140,6 +159,10 @@ namespace YandexRouting
             );
             HttpResponseMessage response = _client.SendAsync(request).Result;
 
+            if(response.StatusCode==System.Net.HttpStatusCode.PaymentRequired)
+            {
+                throw new Exception("Токен просрочен! Нужна оплатама");
+            }
             if (response.IsSuccessStatusCode)
             {
                 var res = response.Content.ReadFromJsonAsync<YandexRoutingTaskCreatedResponse>().Result;

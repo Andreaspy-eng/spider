@@ -11,7 +11,7 @@ public  class BushFileService
     private static readonly string directory = Directory.GetCurrentDirectory();
     public static void createBushFile(List<string> numbers, string folderName)
     {
-        string folderPath = @$"\\192.168.1.116\expl\{folderName}";
+        string folderPath = @$"\\192.168.1.116\expl\тестоваяПапка2\{folderName}";
         if (Directory.Exists(folderPath)) Directory.Delete(folderPath);
         Directory.CreateDirectory(folderPath);
 

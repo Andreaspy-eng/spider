@@ -1689,6 +1689,28 @@ namespace spider.Migrations
                     b.ToTable("AppProducts", (string)null);
                 });
 
+            modelBuilder.Entity("spider.Yandex.AssignedRoute", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("driver_name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("vehicle_id")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("yandex_id")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppAssignedRoutes", (string)null);
+                });
+
             modelBuilder.Entity("spider.Yandex.ResultToken", b =>
                 {
                     b.Property<Guid>("Id")

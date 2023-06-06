@@ -37,9 +37,9 @@ using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.UI;
 using Volo.Abp.UI.Navigation;
 using Volo.Abp.VirtualFileSystem;
+using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared.Bundling;
 
 namespace spider.Web;
-
 [DependsOn(
     typeof(spiderHttpApiModule),
     typeof(spiderApplicationModule),
@@ -88,6 +88,21 @@ public class spiderWebModule : AbpModule
         ConfigureAuthentication(context);
         ConfigureUrls(configuration);
         ConfigureBundles();
+        Configure<AbpBundlingOptions>(options =>
+        {
+            options
+                .ScriptBundles
+                .Get(StandardBundles.Scripts.Global)
+                .AddFiles("/libs/jquery-ui-dist/jquery-ui.min.js");
+            options
+               .ScriptBundles
+               .Get(StandardBundles.Scripts.Global)
+               .AddFiles("/libs/jquery/jquery.js");
+            options
+                .StyleBundles
+                .Get(StandardBundles.Styles.Global)
+                .AddFiles("/libs/jquery-ui-dist/jquery-ui.min.css");
+        });
         ConfigureAutoMapper();
         ConfigureVirtualFileSystem(hostingEnvironment);
         ConfigureNavigationServices();
