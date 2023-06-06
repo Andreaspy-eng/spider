@@ -10,5 +10,7 @@ public class spiderApplicationAutoMapperProfile : Profile
     {
         CreateMap<ResultToken, ResultTokenDTO>();
         CreateMap<CrUpResultToken, ResultToken>();
+        CreateMap<AssignedRoute, AssignedRoutesDTO>();
+        CreateMap<CrUpAssignedRoutes, AssignedRoute>();
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.IdentityModel.Tokens;
 using spider.AdvantageModels;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,23 +52,32 @@ public class IndexModel : spiderPageModel
     {
         List<Counterparty> FilteredCounterpaties = new() { };
         List <Car> FilteredCars = new() { };
-        _cars = _locarus.GetCars();
-        _invoices = _advantage.getInvoices();
-        if (_invoices is not null)
+        try
         {
-            foreach(var counteraprty in _counterparties) 
+            _cars = _locarus.GetCars();
+            _invoices = _advantage.getInvoices();
+            if (_invoices is not null)
             {
-                if (_invoices.Any(x => x.CounterpartyId == counteraprty.codeFromBase))
+                foreach (var counteraprty in _counterparties)
                 {
-                    FilteredCounterpaties.Add(counteraprty);
+                    if (_invoices.Any(x => x.CounterpartyId == counteraprty.codeFromBase))
+                    {
+                        FilteredCounterpaties.Add(counteraprty);
+                    }
                 }
+                FilteredCars = _cars.Where(x => checkboxes.Contains(x.imei)).ToList();
+                if (checkboxes.Length == 0) FilteredCars = _cars.DistinctBy(x => x.number).ToList();
             }
-            FilteredCars=_cars.Where(x => checkboxes.Contains(x.imei)).ToList();
-            if (checkboxes.Length == 0) FilteredCars = _cars.DistinctBy(x => x.number).ToList();
+            var query = _yandex.createQueryToApi(FilteredCounterpaties, FilteredCars);
+            var CreatedTask = _yandex.CreateTask(query);
+            var routes = _yandex.GetLastResult();
+            return Page();
         }
-        var query = _yandex.createQueryToApi(FilteredCounterpaties, FilteredCars);
-        var CreatedTask = _yandex.CreateTask(query);
-        var routes = _yandex.GetLastResult();
-        return Page();
+        catch(Exception e)
+        {
+            ViewData["Error"] = e.Message;
+            return Page();
+        }
+       
     }
 }

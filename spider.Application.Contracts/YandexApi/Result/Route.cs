@@ -1,3 +1,5 @@
+using System.Runtime.Serialization;
+
 namespace spider.YandexApi.Result
 {
     public class Routes
@@ -7,5 +9,7 @@ namespace spider.YandexApi.Result
         public int run_number { get; set; }
         public Shift? shift { get; set; }
         public string vehicle_id { get; set; }
+        [IgnoreDataMember]
+        public string vehicle_driver { get; set;}
     }
 }

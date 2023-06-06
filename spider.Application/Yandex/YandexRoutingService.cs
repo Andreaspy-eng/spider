@@ -21,6 +21,7 @@ namespace YandexRouting
     {
         private IConfiguration _config;
         private IResultTokenService _resultTokenService;
+        private IAssignedRoutesService _assignedRoutesService;
         private HttpClient _client;
 
         /*private static readonly JsonSerializerOptions jsonSerializerOptions = new JsonSerializerOptions
@@ -32,12 +33,15 @@ namespace YandexRouting
             IConfiguration config,
             HttpClient client,
             IResultTokenService resultTokenService)
+            IResultTokenService resultTokenService,
+            IAssignedRoutesService assignedRoutesService)
         {
             _config = config;
-            _resultTokenService=resultTokenService;
+            _resultTokenService = resultTokenService;
             client.BaseAddress = new Uri(_config["Yandex:Main"]!);
             client.DefaultRequestHeaders.Add("Accept", "application/json");
             _client = client;
+            _assignedRoutesService = assignedRoutesService;
         }
 
 
@@ -126,7 +130,6 @@ namespace YandexRouting
                 Log.Error($"Не удалось получить последний результат \n{e.Message}");
                 return null;
             }
-            
         }
 
         public IEnumerable<ResultTokenDTO> GetAll()
@@ -147,6 +150,10 @@ namespace YandexRouting
             );
             HttpResponseMessage response = _client.SendAsync(request).Result;
 
+            if(response.StatusCode==System.Net.HttpStatusCode.PaymentRequired)
+            {
+                throw new Exception("Токен просрочен! Нужна оплатама");
+            }
             if (response.IsSuccessStatusCode)
             {
                 var res = response.Content.ReadFromJsonAsync<YandexRoutingTaskCreatedResponse>().Result;

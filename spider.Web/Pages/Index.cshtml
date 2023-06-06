@@ -8,6 +8,12 @@
 @inject ICurrentUser CurrentUser
 
 <div class="container">
+    @if (ViewData["Error"] is not null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @ViewData["Error"]
+        </div>
+    }
     <div class="p-4 text-center">
         <h2>
             <i>

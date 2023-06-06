@@ -1,5 +1,9 @@
 ﻿@page
 @model spider.Web.Pages.RoutesListModel
+@section scripts
+{
+    <abp-script src="/Pages/RoutesList.js" />
+}
 @{
     //<a class="btn btn-primary" asp-page="Route" asp-page-handler="OnGet" asp-route-waybill=@Json.Serialize(Model.routes.result.routes[i])>@item.id</a>
     //Html.ActionLink(item.id, "OnGetRoute", "RoutesList",new(){id=@i})
@@ -16,12 +20,27 @@
         <h1 class="text-center">Путевые листы</h1>
         
             <br /> //FIXME
+        <div class="col">
+           
+                <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+                
+                
+           
+            
 
+
+        </div>
         <div class="col float-end">
-            <a href="https://yandex.ru/courier/companies/31415/depots/all/mvrp/@Model.routes.id" class="btn btn-outline-warning" target="_blank">Перейти в Яндекс</a>
-            <form method="post" asp-page="RoutesList" asp-page-handler="TextFile" asp-route-id=@Model.routes.id>
-                <button class="btn btn-outline-primary">Создать файл</button>
-            </form>
+            <a href="https://yandex.ru/courier/companies/31415/depots/all/mvrp/@Model.routes.id"
+            class="btn btn-outline-warning" target="_blank">
+                Перейти в Яндекс
+            </a>
+            @if (Model.routes.result.routes.All(s => s.vehicle_driver is not null))
+            {
+                <form method="post" asp-page="RoutesList" asp-page-handler="TextFile">
+                    <button class="btn btn-outline-primary">Создать файл</button>
+                </form>
+            }
         </div>
 
         <div class="container">
@@ -30,9 +49,52 @@
                 @foreach (var item in Model.routes.result.routes)
                 {
                     <div class="col">
-                       <form method="post" asp-page="RoutesList" asp-route-id=@i asp-page-handler="Routes">
-                            <button class="btn btn-outline-primary">@item.vehicle_id</button>
-                       </form>
+                       
+                       <div class="card">
+                            <div class="card-header">
+                                <p class="card-title">@item.vehicle_id</p>
+                                @if(item.vehicle_driver is null)
+                                {
+                                    <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" type="button"  data-bs-toggle="dropdown">
+                                            Назначить водителя
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <input class="form-control p-0" id="myInput" type="text" placeholder="Поиск..">
+                                            @foreach(var driver in Model.drivers)
+                                            {
+                                                <li>
+                                                    <a asp-page="RoutesList" 
+                                                        asp-page-handler="ChangeName"
+                                                        asp-route-id=@item.vehicle_id
+                                                        asp-route-yandex_id=@Model.routes.id
+                                                        asp-route-name=@driver.name>
+                                                        @driver.name
+                                                    </a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <p class="card-subtitle">@item.vehicle_driver
+                                        <a asp-page="RoutesList"
+                                           asp-page-handler="DeleteName"
+                                           asp-route-yandex_id=@Model.routes.id
+                                           asp-route-id=@item.vehicle_id
+                                           class="btn btn-outline-danger fa fa-close">
+                                        </a>
+                                    </p>
+                                }
+                            </div>
+                            <div class="card-body">
+                                <form method="post" asp-page="RoutesList" asp-route-id=@i asp-page-handler="Routes">
+                                    <button class="btn btn-outline-primary">Подробнее о маршруте</button>
+                                </form>
+                            </div>
+                       </div>
                     </div>
                     i++;
                 }

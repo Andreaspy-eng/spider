@@ -29,6 +29,8 @@ public class spiderDbContext :
 {
     /* Add DbSet properties for your Aggregate Roots / Entities here. */
     public DbSet<Product> Products { get; set; }
+
+    public DbSet<AssignedRoute> AssignedRoutes { get; set; }
     public DbSet<ResultToken> ResultTokens { get; set; }
 
     #region Entities from the modules
@@ -95,6 +97,12 @@ public class spiderDbContext :
             b.ConfigureByConvention();
         });
 
+        builder.Entity<AssignedRoute>(b =>
+        {
+            b.ToTable(spiderConsts.DbTablePrefix + "AssignedRoutes", spiderConsts.DbSchema);
+            b.Property(x => x.yandex_id).IsRequired();
+            b.ConfigureByConvention();
+        });
 
         //builder.Entity<YourEntity>(b =>
         //{

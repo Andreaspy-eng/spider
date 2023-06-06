@@ -43,6 +43,7 @@ namespace spider
             };
         }
 
+<<<<<<< HEAD
         public IEnumerable<InvoiceHeader> getInvoices(string thisDay)
         {
           DateTime dResult = DateTime.ParseExact(thisDay, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
@@ -55,6 +56,17 @@ namespace spider
                 JsonSerializer serializer = new();
                 var InvoiceList = serializer.Deserialize<IEnumerable<InvoiceHeader>>(reader);
                 return InvoiceList;
+            };
+        }
+        public IEnumerable<Driver> GetDrivers()
+        {
+            using (Stream s = _advantageClient.GetStreamAsync(_config["Advantage:Drivers"]).Result)
+            using (StreamReader sr = new StreamReader(s))
+            using (JsonReader reader = new JsonTextReader(sr))
+            {
+                JsonSerializer serializer = new();
+                var result = serializer.Deserialize<IEnumerable<Driver>>(reader);
+                return result;
             };
         }
     }

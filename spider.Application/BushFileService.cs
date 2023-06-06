@@ -14,6 +14,7 @@ public  class BushFileService
     {
         string folderPath = @$"\\192.168.1.116\expl\тестоваяПапка\{folderName}";
         if (Directory.Exists(folderPath)) Directory.Delete(folderPath,true);
+
         Directory.CreateDirectory(folderPath);
 
         string textFile = Path.Combine(folderPath,$"{DateTime.UtcNow.ToString("yyyyMMddHHmm")}.bak");
