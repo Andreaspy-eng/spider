@@ -49,17 +49,28 @@ namespace spider.Web.Pages
         {
             routes = _yandex.GetResult(id);     
             List<string> numbers = new ();
-            List<string> points = new();
-            int i = 1;
-            foreach (var item in _advantage.getInvoices().GroupBy(p => p.CounterpartyId)) 
-            {
-                foreach (var person in item)
+            
+            var inv= _advantage.getInvoices(routes.result.options.date).GroupBy(p => p.CounterpartyId);
+            foreach (var item in routes.result.routes)
+            { 
+              List<string> points = new();
+              string DriverCode = routes.result.vehicles
+                .Where(x=>x.id==item.vehicle_id)
+                .FirstOrDefault().@ref
+                .Substring(0,2);
+              var tps=item.route.Where(x=>x.node.@type!="depot");
+              int i = 1;
+              foreach(var tp in tps)
+              {
+                var clientInv = inv.FirstOrDefault(x=>x.Key==tp.node.value.id).ToList();
+                foreach(var one in clientInv)
                 {
-                    numbers.Add(person.UniqueId.Replace(" ",string.Empty)+";"+i);
+                  if(one is not null)points.Add(one.UniqueId.Replace(" ",string.Empty)+";"+i); 
                 }
                 i++;
-            }
-            BushFileService.createBushFile(numbers,"�������������");
+              }
+              if(points is not null && points.Count>0)BushFileService.createBushFile(points,DriverCode);
+            }               
         }
     }
 }

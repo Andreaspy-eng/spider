@@ -19,7 +19,7 @@
 
         <div class="col float-end">
             <a href="https://yandex.ru/courier/companies/31415/depots/all/mvrp/@Model.routes.id" class="btn btn-outline-warning" target="_blank">Перейти в Яндекс</a>
-            <form method="post" asp-page="RoutesList" asp-page-handler="TextFile">
+            <form method="post" asp-page="RoutesList" asp-page-handler="TextFile" asp-route-id=@Model.routes.id>
                 <button class="btn btn-outline-primary">Создать файл</button>
             </form>
         </div>

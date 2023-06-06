@@ -267,3 +267,4 @@ src/spider.Blazor.Server.Tiered/Logs/*
 ./.gitignore
 ./.vs/
 ./.vscode/
+./node_modules

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
@@ -11,11 +12,11 @@ public  class BushFileService
     private static readonly string directory = Directory.GetCurrentDirectory();
     public static void createBushFile(List<string> numbers, string folderName)
     {
-        string folderPath = @$"\\192.168.1.116\expl\{folderName}";
-        if (Directory.Exists(folderPath)) Directory.Delete(folderPath);
+        string folderPath = @$"\\192.168.1.116\expl\тестоваяПапка\{folderName}";
+        if (Directory.Exists(folderPath)) Directory.Delete(folderPath,true);
         Directory.CreateDirectory(folderPath);
 
-        string textFile = Path.Combine(folderPath, "test.txt");
+        string textFile = Path.Combine(folderPath,$"{DateTime.UtcNow.ToString("yyyyMMddHHmm")}.bak");
 
         using (StreamWriter text = File.CreateText(textFile))
         {

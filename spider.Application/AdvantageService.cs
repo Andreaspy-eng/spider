@@ -42,5 +42,20 @@ namespace spider
                 return InvoiceList;
             };
         }
+
+        public IEnumerable<InvoiceHeader> getInvoices(string thisDay)
+        {
+          DateTime dResult = DateTime.ParseExact(thisDay, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+          string beforeDay = dResult.AddDays(-1).ToString("yyyy-MM-dd");
+
+            using (Stream s = _advantageClient.GetStreamAsync(_config["Advantage:Invoices"] + $"?Start={beforeDay}&End={thisDay}&Codes=Т-р&Codes=Т-Р").Result)
+            using (StreamReader sr = new StreamReader(s))
+            using (JsonReader reader = new JsonTextReader(sr))
+            {
+                JsonSerializer serializer = new();
+                var InvoiceList = serializer.Deserialize<IEnumerable<InvoiceHeader>>(reader);
+                return InvoiceList;
+            };
+        }
     }
 }
