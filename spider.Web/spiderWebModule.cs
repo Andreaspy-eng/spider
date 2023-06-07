@@ -38,6 +38,8 @@ using Volo.Abp.UI;
 using Volo.Abp.UI.Navigation;
 using Volo.Abp.VirtualFileSystem;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared.Bundling;
+using Volo.Abp.OpenIddict;
+using System.Security.Cryptography.X509Certificates;
 
 namespace spider.Web;
 [DependsOn(
@@ -68,16 +70,43 @@ public class spiderWebModule : AbpModule
                 typeof(spiderWebModule).Assembly
             );
         });
+          var hostingEnvironment = context.Services.GetHostingEnvironment();
 
-        PreConfigure<OpenIddictBuilder>(builder =>
+        // Development environment
+        if (hostingEnvironment.IsDevelopment())
         {
-            builder.AddValidation(options =>
+            PreConfigure<AbpOpenIddictAspNetCoreOptions>(options =>
             {
-                options.AddAudiences("spider");
-                options.UseLocalServer();
-                options.UseAspNetCore();
+                // This is default value, you can remove this line.
+                options.AddDevelopmentEncryptionAndSigningCertificate = true;
             });
-        });
+        }
+
+        // Production or Staging environment
+        if (!hostingEnvironment.IsDevelopment())
+        {
+            PreConfigure<AbpOpenIddictAspNetCoreOptions>(options =>
+            {
+                options.AddDevelopmentEncryptionAndSigningCertificate = false;
+            });
+
+            PreConfigure<OpenIddictServerBuilder>(builder =>
+            {
+                builder.AddSigningCertificate(GetSigningCertificate(hostingEnvironment));
+                builder.AddEncryptionCertificate(GetSigningCertificate(hostingEnvironment));
+
+                //...
+            });
+            PreConfigure<OpenIddictBuilder>(builder =>
+          {
+              builder.AddValidation(options =>
+              {
+                  options.AddAudiences("spider");
+                  options.UseLocalServer();
+                  options.UseAspNetCore();
+              });
+          });
+        }
     }
 
     public override void ConfigureServices(ServiceConfigurationContext context)
@@ -227,4 +256,8 @@ public class spiderWebModule : AbpModule
         app.UseAbpSerilogEnrichers();
         app.UseConfiguredEndpoints();
     }
+    private X509Certificate2 GetSigningCertificate(IWebHostEnvironment hostingEnv)
+  {
+      return new X509Certificate2(Path.Combine(hostingEnv.ContentRootPath, "authserver.pfx"), "00000000-0000-0000-0000-000000000000");
+  }
 }

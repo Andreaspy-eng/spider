@@ -10,9 +10,8 @@ namespace spider.Application;
 public  class BushFileService
 {
     private static readonly string directory = Directory.GetCurrentDirectory();
-    public static void createBushFile(List<string> numbers, string folderName)
+    public static void createBushFile(List<string> numbers, string folderPath)
     {
-        string folderPath = @$"\\192.168.1.116\expl\тестоваяПапка\{folderName}";
         if (Directory.Exists(folderPath)) Directory.Delete(folderPath,true);
 
         Directory.CreateDirectory(folderPath);

@@ -32,7 +32,6 @@ namespace YandexRouting
         public YandexRoutingService(
             IConfiguration config,
             HttpClient client,
-            IResultTokenService resultTokenService)
             IResultTokenService resultTokenService,
             IAssignedRoutesService assignedRoutesService)
         {
@@ -171,7 +170,22 @@ namespace YandexRouting
             CheckTaskGuid(taskGuid);
             GetLastModificationOfTaskGuid(taskGuid);
             var path = _config["Yandex:GetResult"] + taskGuid;
-            return GetData<YandexRoutingResult>(path);
+            var respond= GetData<YandexRoutingResult>(path);
+            if(respond != null )
+            {
+                    var pizda = new PagedAndSortedResultRequestDto() { MaxResultCount=1000};
+                    var assigned = _assignedRoutesService
+                        .GetListAsync(pizda).Result.Items.Where(x => x.yandex_id == respond.id);
+                    if(assigned != null )
+                    {
+                        foreach( var route in assigned )
+                        {
+                            respond.result.routes.Find(x => x.vehicle_id == route.vehicle_id)
+                                .vehicle_driver = route.driver_name;
+                        }
+                    }
+            }
+            return respond;
         }
 
         public List<ChildTask> GetChildTasks(string taskGuid)

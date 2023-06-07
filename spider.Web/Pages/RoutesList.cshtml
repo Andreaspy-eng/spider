@@ -37,7 +37,7 @@
             </a>
             @if (Model.routes.result.routes.All(s => s.vehicle_driver is not null))
             {
-                <form method="post" asp-page="RoutesList" asp-page-handler="TextFile">
+                <form method="post" asp-page="RoutesList" asp-page-handler="TextFile" asp-route-id=@Model.routes.id>
                     <button class="btn btn-outline-primary">Создать файл</button>
                 </form>
             }

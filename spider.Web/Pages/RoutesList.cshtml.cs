@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Org.BouncyCastle.Math.EC.Rfc7748;
 using Polly;
@@ -27,11 +28,14 @@ namespace spider.Web.Pages
         private readonly IAssignedRoutesService _assignedRoutesService;
         public IEnumerable<Driver> drivers;
         public YandexRoutingResult routes { get; set; }
+        public IConfiguration _config;
         public RoutesListModel(
+            IConfiguration config,
             IYandexRoutingService yandex,
             IAdvantageService advantage,
             IAssignedRoutesService assignedRoutes)
         {
+            _config=config;
             _assignedRoutesService=assignedRoutes;
             _advantage= advantage;
             _yandex = yandex;
@@ -66,7 +70,7 @@ namespace spider.Web.Pages
                     vehicle_id = id,
                     yandex_id = yandex_id
                 });
-            return RedirectToPage("/RoutesList", "Display");
+            return RedirectToPage("/RoutesList", "Display",new { id = yandex_id});
         }
 
         public IActionResult OnGetDeleteName(string yandex_id, string id)
@@ -82,7 +86,7 @@ namespace spider.Web.Pages
                     _assignedRoutesService.DeleteAsync(to_del.Id);
                 }
             }
-            return RedirectToPage("/RoutesList", "Display");
+            return RedirectToPage("/RoutesList", "Display",new { id = yandex_id});
         }
 
         public void OnPostTextFile(string id)
@@ -94,10 +98,8 @@ namespace spider.Web.Pages
             foreach (var item in routes.result.routes)
             { 
               List<string> points = new();
-              string DriverCode = routes.result.vehicles
-                .Where(x=>x.id==item.vehicle_id)
-                .FirstOrDefault().@ref
-                .Substring(0,2);
+              string DriverCode = item.vehicle_driver.Substring(0,2);
+              string path=@$"\\{_config["App:FTP"]}\{_config["App:DriverFolder"]}\{DriverCode}"; 
               var tps=item.route.Where(x=>x.node.@type!="depot");
               int i = 1;
               foreach(var tp in tps)
@@ -109,7 +111,7 @@ namespace spider.Web.Pages
                 }
                 i++;
               }
-              if(points is not null && points.Count>0)BushFileService.createBushFile(points,DriverCode);
+              if(points is not null && points.Count>0)BushFileService.createBushFile(points,path);
             }               
         }
     }

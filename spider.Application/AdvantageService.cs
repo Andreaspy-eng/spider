@@ -42,8 +42,6 @@ namespace spider
                 return InvoiceList;
             };
         }
-
-<<<<<<< HEAD
         public IEnumerable<InvoiceHeader> getInvoices(string thisDay)
         {
           DateTime dResult = DateTime.ParseExact(thisDay, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
