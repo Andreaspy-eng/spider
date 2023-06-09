@@ -14,6 +14,7 @@ using spider.YandexApi.Result;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
@@ -111,7 +112,11 @@ namespace spider.Web.Pages
                 }
                 i++;
               }
-              if(points is not null && points.Count>0)BushFileService.createBushFile(points,path);
+              var userName = "test";
+              var password = "12345678";
+              var domain = "ALTOPT";
+              var networkCredential = new NetworkCredential(userName, password, domain);
+              if(points is not null && points.Count>0)BushFileService.createBushFile(points,path,networkCredential);
             }               
         }
     }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
+using System.Net;
 using System.Text;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -10,8 +11,11 @@ namespace spider.Application;
 public  class BushFileService
 {
     private static readonly string directory = Directory.GetCurrentDirectory();
-    public static void createBushFile(List<string> numbers, string folderPath)
+    public static void createBushFile(List<string> numbers, string folderPath,NetworkCredential credits)
     {
+      using (var network = new NetworkConnection(folderPath, credits))
+      {
+        network.Connect();
         if (Directory.Exists(folderPath)) Directory.Delete(folderPath,true);
 
         Directory.CreateDirectory(folderPath);
@@ -25,5 +29,6 @@ public  class BushFileService
                 text.WriteLine(item);
             }
         }
+      }
     }
 }

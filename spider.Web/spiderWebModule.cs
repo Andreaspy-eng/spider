@@ -258,6 +258,7 @@ public class spiderWebModule : AbpModule
     }
     private X509Certificate2 GetSigningCertificate(IWebHostEnvironment hostingEnv)
   {
+    // dotnet dev-certs https -v -ep authserver.pfx -p 00000000-0000-0000-0000-000000000000
       return new X509Certificate2(Path.Combine(hostingEnv.ContentRootPath, "authserver.pfx"), "00000000-0000-0000-0000-000000000000");
   }
 }
