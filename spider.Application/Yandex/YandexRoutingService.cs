@@ -53,8 +53,8 @@ namespace YandexRouting
                 name= "СКЛАД",
                 point = new Point()
                 {
-                    lat = 56.989620,
-                    lon = 41.047034
+                    lat = 56.9884970,
+                    lon = 41.0466750
                 },
                 time_window = "07:00-18:00"
             };
@@ -99,6 +99,8 @@ namespace YandexRouting
             {
                 var lacalka=new Locations();
                 lacalka.id = client.codeFromBase;
+                lacalka.title=client.name is null?"НЕТ ИМЕНИ":client.name;
+                lacalka.description=client.address is null?"НЕТ АДРЕСА":client.address;
                 if (client.latitude == 0.0) client.latitude = 55.733996;
                 if (client.longitude == 0.0) client.longitude= 37.588472;
                 lacalka.point = new Point()
@@ -167,8 +169,7 @@ namespace YandexRouting
         
         public YandexRoutingResult GetResult(string taskGuid)
         {
-            CheckTaskGuid(taskGuid);
-            GetLastModificationOfTaskGuid(taskGuid);
+            taskGuid=GetLastModificationOfTaskGuid(taskGuid);
             var path = _config["Yandex:GetResult"] + taskGuid;
             var respond= GetData<YandexRoutingResult>(path);
             if(respond != null )

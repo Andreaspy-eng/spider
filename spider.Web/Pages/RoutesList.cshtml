@@ -52,7 +52,7 @@
                        
                        <div class="card">
                             <div class="card-header">
-                                <p class="card-title">@item.vehicle_id</p>
+                                <p class="card-title">@Model.routes.result.vehicles.Find(x=>x.id==item.vehicle_id).car_name</p>
                                 @if(item.vehicle_driver is null)
                                 {
                                     <div class="dropdown">

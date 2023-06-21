@@ -7,6 +7,7 @@ namespace spider.YandexApi;
 
         public class Locations
         {
+            public string title { get; set; }
             public string id { get; set; }
             public Point point { get; set; }
 /*            public int shared_service_duration_s { get; set; }
@@ -14,6 +15,7 @@ namespace spider.YandexApi;
 
             public Shipment shipment_size{ get; set; }*/
             public string time_window { get; set; }
+            public string description { get; set; }
            /* public Penalty penalty { get; set; }
             public string type { get; set; }
             public List<string> load_types { get; set; }       */  

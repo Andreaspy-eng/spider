@@ -18,6 +18,9 @@
         <h2>
             <i>
                 «Деньги дороги, жизнь человеческая дороже, а время дороже всего»
+                <div class="col-md-auto">
+        <input id="toggleAll" type="checkbox" onclick="SetAllCheckBoxes(this)" />
+    </div>
             </i>   
         </h2>
         <br/>
@@ -51,6 +54,6 @@
 
         
         @await Html.PartialAsync("../Views/shared/_partialCars",Model._cars)
-        
+            <script src="~/site.js" asp-append-version="true"></script>
     </div>
 </div>
