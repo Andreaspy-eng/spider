@@ -28,7 +28,7 @@ namespace spider.YandexApi
                 return ConvertFromUnixDateStampt(queued); } }
         public DateTime matrix_downloadedDateTimeUTC { get { return ConvertFromUnixDateStampt(matrix_downloaded); } }
 
-        private DateTime ConvertFromUnixDateStampt(double timeValue)
+        public static DateTime ConvertFromUnixDateStampt(double timeValue)
         {
            return _epoch.AddSeconds(timeValue);
         }

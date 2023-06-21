@@ -1,31 +1,26 @@
 @page
 @model spider.Web.Pages.ChildTasksModel
 @{
-    <h2 class="text-center">История изменений по задаче
-         <a href="https://yandex.ru/courier/companies/31415/depots/all/mvrp/@Model.taskGuid" 
-            class="btn btn-warning" target="_blank">@Model.taskGuid</a> 
-    </h2>
+    <div>
+      <h2 class="text-center">История изменений по задаче</h2>
+      <a href="https://yandex.ru/courier/companies/31415/depots/all/mvrp/@Model.taskGuid" 
+              class="btn btn-outline-warning button-wrapper" target="_blank">@Model.taskGuid</a>
+    </div>
     <br />
     <div class="container">
         <div class="row row-cols-2 row-cols-md-3 g-4">
             @foreach(var item in Model.Results)
             {
-                <div class="col">
-                    <div class="row ">
-                        @item.added_at
-                    </div>
-                    <div class="row ">
-                       <div class="col text-center">
-                            <a href="https://yandex.ru/courier/companies/31415/depots/all/mvrp/@item.task_id" 
-                            class="btn btn-warning" target="_blank">В Яндекс</a>
-                        </div>
-                        <div class="col text-center">
-                             <a class="btn btn-outline-secondary" 
-                            href="/RoutesList?id=@item.task_id&handler=Display">Путевой лист
-                            </a>
-                        </div>
-                    </div>
-                </div>
+              <div class="col">
+                <div class="card" style="width: 18rem;">
+                  <div class="card-body">
+                    <h5 class="card-title"> @item.added_at</h5>
+                    <p class="card-text">For information</p>
+                    <a href="https://yandex.ru/courier/companies/31415/depots/all/mvrp/@item.task_id" class="btn btn-warning">В Яндекс</a>
+                    <a href="/RoutesList?id=@item.task_id&handler=Display" class="btn btn-primary">Путевой лист</a>
+                  </div>
+                </div>  
+              </div>
             }
         </div>
     </div>

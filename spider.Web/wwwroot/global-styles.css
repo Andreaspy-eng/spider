@@ -16,3 +16,8 @@
     border-radius: 0;
     background: #f1f1f1;
 }
+
+.button-wrapper{
+  display: flex;
+  justify-content: center;
+}
