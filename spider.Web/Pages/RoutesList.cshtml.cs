@@ -62,19 +62,27 @@ namespace spider.Web.Pages
         }
 
 
-        public IActionResult OnGetChangeName(string yandex_id,string id,string name)
+        public async Task<IActionResult> OnGetChangeName(string yandex_id,string id,string name)
         {
-            _assignedRoutesService.CreateAsync(
-                new CrUpAssignedRoutes()
-                {
-                    driver_name = name,
-                    vehicle_id = id,
-                    yandex_id = yandex_id
-                });
+            var pizda = new PagedAndSortedResultRequestDto() { MaxResultCount = 1000 };
+            var assigned = await _assignedRoutesService
+                .GetListAsync(pizda);
+            var to_add0 = assigned.Items.AsEnumerable().Where(x => x.yandex_id == yandex_id);
+            var to_add = to_add0.FirstOrDefault(x => x.driver_name == name); //?
+            if(to_add is null)
+            {          
+            await  _assignedRoutesService.CreateAsync(
+                  new CrUpAssignedRoutes()
+                  {
+                      driver_name = name,
+                      vehicle_id = id,
+                      yandex_id = yandex_id
+                  });
+            }
             return RedirectToPage("/RoutesList", "Display",new { id = yandex_id});
         }
 
-        public IActionResult OnGetDeleteName(string yandex_id, string id)
+        public async Task<IActionResult> OnGetDeleteName(string yandex_id, string id)
         {
             var pizda = new PagedAndSortedResultRequestDto() { MaxResultCount = 1000 };
             var assigned = _assignedRoutesService
@@ -84,7 +92,7 @@ namespace spider.Web.Pages
                 var to_del = assigned.First(x => x.vehicle_id == id);
                 if (to_del != null)
                 {
-                    _assignedRoutesService.DeleteAsync(to_del.Id);
+                    await _assignedRoutesService.DeleteAsync(to_del.Id);
                 }
             }
             return RedirectToPage("/RoutesList", "Display",new { id = yandex_id});
