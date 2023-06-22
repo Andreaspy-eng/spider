@@ -1,5 +1,5 @@
 namespace spider.YandexApi.Result;
 public class Overtime
     {
-        public int duration_s { get; set; }
+        public double duration_s { get; set; }
     }
