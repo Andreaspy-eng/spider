@@ -268,3 +268,4 @@ src/spider.Blazor.Server.Tiered/Logs/*
 ./.vs/
 ./.vscode/
 ./node_modules
+spider.Web/Logs/logs.txt
