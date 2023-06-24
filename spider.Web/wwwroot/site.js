@@ -24,7 +24,7 @@ document.getElementById('search-box').addEventListener("keyup", function()
   t = document.getElementById('search-box'); //
   let text = t.value.toUpperCase();          //
   c = document.querySelectorAll("[id^='car-model']")
-  for (var i = 0; i < c.length - 1; i++) {
+  for (var i = 0; i < c.length; i++) {
     a = c[i]
     txtValue = a.textContent || a.innerText;
     if (txtValue.toUpperCase().indexOf(text) > -1) {
