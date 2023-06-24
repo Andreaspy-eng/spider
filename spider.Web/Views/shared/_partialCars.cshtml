@@ -2,24 +2,26 @@
 
 @if(Model is not null)
 {
+  
     <form method="post" asp-page="IndexModel" asp-page-handler="Routes" id="table">
         <div class="container">
             <div class="row row-cols-2 row-cols-md-4 g-4">
+              
                 @foreach (var item in Model)
                 {
-                    <div class="col">
-                        <div class="card h-100">
-                            <div class="card-header">
-                                <div class="col">
-                                    <input  id="checkboxes" type="checkbox" name="checkboxes" id=@item.number value=@item.imei></input>
-                                    <label for=@item.number> @item.model</label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <p class="card-text">@item.number</p>
-                            </div>
-                        </div>
+                  <div class="col">
+                    <div class="card h-100" id="car-card">
+                      <div class="card-header">
+                          <div class="col">
+                            <input  id="checkboxes" type="checkbox" name="checkboxes" id=@item.number value=@item.imei></input>
+                            <label for=@item.number id="car-model"> @item.model</label>
+                          </div>
+                      </div>
+                      <div class="row">
+                        <p class="card-text">@item.number</p>
+                      </div>
                     </div>
+                  </div>
                 }
              </div>
         </div>
