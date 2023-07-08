@@ -6,6 +6,15 @@
 @model spider.Web.Pages.IndexModel
 @inject IHtmlLocalizer<spiderResource> L
 @inject ICurrentUser CurrentUser
+<script>
+  window.onload = function () {
+    document.body.classList.add('loaded_hiding');
+    window.setTimeout(function () {
+      document.body.classList.add('loaded');
+      document.body.classList.remove('loaded_hiding');
+    }, 500);
+  }
+</script>
 
 <div class="container">
   @if (ViewData["Error"] is not null)
@@ -37,12 +46,20 @@
         </div>  
     </div>
     
-       
-    <br/>
+    <div class="preloader">
+      <div class="preloader__image"></div>
+    </div>
+
+    <div class="loader d-flex justify-content-center">
+      <div class="loading">
+      </div>
+    </div>
+
+    <br/> 
 
     <div class="col float-end">
       <form method="post" asp-page="IndexModel" asp-page-handler="Invoices">
-        <button class="btn btn-outline-primary" style="position:fixed">
+        <button class="btn btn-outline-primary" style="position:fixed" onclick="spinner()">
           Загрузить список машин
         </button>
       </form>

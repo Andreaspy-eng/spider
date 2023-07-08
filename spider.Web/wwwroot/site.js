@@ -1,4 +1,6 @@
-﻿function SetAllCheckBoxes(obj)
+﻿
+// For select all button on Index page
+function SetAllCheckBoxes(obj)
 {
     var c = new Array();
     var cards = document.querySelectorAll('.show');
@@ -17,7 +19,7 @@
     }
 }
 
-
+// For Search on Index page
 document.getElementById('search-box').addEventListener("keyup", function()
 
 {
@@ -34,3 +36,8 @@ document.getElementById('search-box').addEventListener("keyup", function()
     }
   }
 })
+
+function spinner() {
+  document.getElementsByClassName("loader")[0].style.display = "block";
+  document.getElementsByClassName("loading")[0].style.display = "block";
+}
