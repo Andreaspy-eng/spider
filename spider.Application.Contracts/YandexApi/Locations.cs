@@ -10,10 +10,12 @@ namespace spider.YandexApi;
             public string title { get; set; }
             public string id { get; set; }
             public Point point { get; set; }
-/*            public int shared_service_duration_s { get; set; }
+            /// время на обмен документами или парковку
+            public int shared_service_duration_s { get; set; }
+            /// время на вручение заказа получателю.
             public int service_duration_s { get; set; }
 
-            public Shipment shipment_size{ get; set; }*/
+           /* public Shipment shipment_size{ get; set; }*/
             public string time_window { get; set; }
             public string description { get; set; }
            /* public Penalty penalty { get; set; }

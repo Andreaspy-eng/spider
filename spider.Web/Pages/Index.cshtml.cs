@@ -62,6 +62,8 @@ public class IndexModel : spiderPageModel
                 {
                     if (_invoices.Any(x => x.CounterpartyId == counteraprty.codeFromBase))
                     {
+                        var inv=_invoices.FirstOrDefault(x => x.CounterpartyId == counteraprty.codeFromBase);
+                        counteraprty.InvoiceNumber=$"{inv.CodeOperation}{inv.ComputerNumber}{inv.Date.Year}{inv.DocumentNumber.PadLeft(6)}";
                         FilteredCounterpaties.Add(counteraprty);
                     }
                 }

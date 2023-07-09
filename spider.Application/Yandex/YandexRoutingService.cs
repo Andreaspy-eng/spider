@@ -98,7 +98,7 @@ namespace YandexRouting
             foreach(var client in Clients) 
             {
                 var lacalka=new Locations();
-                lacalka.id = client.codeFromBase;
+                lacalka.id = client.InvoiceNumber;
                 lacalka.title=client.name is null?"НЕТ ИМЕНИ":client.name;
                 lacalka.description=client.address is null?"НЕТ АДРЕСА":client.address;
                 if (client.latitude == 0.0) client.latitude = 55.733996;
@@ -109,6 +109,8 @@ namespace YandexRouting
                     lon = client.longitude,
                 };
                 lacalka.time_window = "09:00-18:00";
+                lacalka.service_duration_s = 600;
+                lacalka.shared_service_duration_s = 300;
                 locations.Add( lacalka );
             }
             query.locations = locations;

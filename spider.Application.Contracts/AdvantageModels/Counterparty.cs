@@ -14,6 +14,8 @@ namespace spider.AdvantageModels
         public double longitude { get; set; }
         public int type { get; set; }
         public List<WorkSchedule> workSchedule { get; set; }
+
+         public string InvoiceNumber {get;set;}
     }
 
     public class WorkSchedule
