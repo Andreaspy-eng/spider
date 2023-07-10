@@ -121,8 +121,8 @@ namespace YandexRouting
         {
             try
             {
-                var Hui = new PagedAndSortedResultRequestDto();
-                var task = _resultTokenService.GetListAsync(Hui).Result
+                var Route = new PagedAndSortedResultRequestDto();
+                var task = _resultTokenService.GetListAsync(Route).Result
                     .Items.OrderBy(x=>x.CreationDate)
                     .Last().yandex_id;
                 var respond = GetResult(task);
@@ -137,8 +137,8 @@ namespace YandexRouting
 
         public IEnumerable<ResultTokenDTO> GetAll()
         {
-            var Hui = new PagedAndSortedResultRequestDto();
-            return _resultTokenService.GetListAsync(Hui).Result.Items;
+            var Route = new PagedAndSortedResultRequestDto();
+            return _resultTokenService.GetListAsync(Route).Result.Items;
         }
 
         public YandexRoutingTaskCreatedResponse CreateTask(QueryCreateRouteList query)
