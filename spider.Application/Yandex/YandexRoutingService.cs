@@ -91,7 +91,7 @@ namespace YandexRouting
 
             query.options = new spider.YandexApi.Options()
             {
-                quality = "low",
+                quality = "low",                              //FIXME Вынести в интерфейс
             };
 
             var locations = new List<Locations>();
@@ -108,7 +108,8 @@ namespace YandexRouting
                     lat = client.latitude,
                     lon = client.longitude,
                 };
-                lacalka.time_window = "09:00-18:00";
+                if (client.workSchedule is not null && client.workSchedule.Count>0) lacalka.time_window = $"{client.workSchedule.FirstOrDefault().openTime}-{client.workSchedule.FirstOrDefault().closeTime}";
+                else lacalka.time_window = "08:00:00-17:00:00";
                 lacalka.service_duration_s = 600;
                 lacalka.shared_service_duration_s = 300;
                 locations.Add( lacalka );
