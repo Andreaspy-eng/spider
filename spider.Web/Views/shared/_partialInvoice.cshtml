@@ -1,0 +1,29 @@
+@model IEnumerable<spider.AdvantageModels.InvoiceHeader>;
+
+@if(Model is not null)
+{
+  
+    <form method="post" asp-page="IndexModel" asp-page-handler="Routes" id="table">
+        <div class="container">
+            <div class="row row-cols-2 row-cols-md-1 g-4">
+              
+                @foreach (var item in Model)
+                {
+                  <div class="col">
+                    <div class="card h-100" id="car-card">
+                      <div class="card-header text-center">
+                          <div class="col">
+                            <input  id="checkboxes" type="checkbox" name="checkboxes" id=@item.ShipmentDate value=@item.ShipmentDate></input>
+                            <label for=@item.UniqueId id="car-model"> @item.UniqueId</label>
+                          </div>
+                      </div>
+                      <div class="row text-center">
+                        <p class="card-text">@item.UniqueId</p>
+                      </div>
+                    </div>
+                  </div>
+                }
+             </div>
+        </div>
+    </form>
+}

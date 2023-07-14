@@ -15,7 +15,7 @@ public class IndexModel : spiderPageModel
     private readonly IYandexRoutingService _yandex;
     private readonly ILocarusService _locarus;
     public IEnumerable <Car> _cars;
-    private IEnumerable <InvoiceHeader> _invoices;
+    public IEnumerable <InvoiceHeader> _invoices;
     private IEnumerable<Counterparty> _counterparties;
 
     public IndexModel(IEnumerable<Car> cars)
@@ -33,6 +33,7 @@ public class IndexModel : spiderPageModel
         _yandex = yandex;
         _locarus = locarus;
         _cars = _locarus.GetCars();
+        _invoices = _advantage.getInvoices(DateTime.UtcNow.ToString("yyyy-MM-dd"));
         _counterparties = counterparty.getCounterparties();
     }
 
