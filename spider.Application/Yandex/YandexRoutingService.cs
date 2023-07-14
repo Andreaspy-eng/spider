@@ -112,6 +112,23 @@ namespace YandexRouting
                 else lacalka.time_window = "08:00:00-17:00:00";
                 lacalka.service_duration_s = 600;
                 lacalka.shared_service_duration_s = 300;
+                lacalka.penalty=new()
+                {
+                  early = new()
+                  {
+                    @fixed = 1000
+                  },
+
+                  late = new()
+                  {
+                    @fixed = 1500
+                  },
+
+                  out_of_time = new()
+                  {
+                    @fixed = 2000
+                  }
+                };
                 locations.Add( lacalka );
             }
             query.locations = locations;

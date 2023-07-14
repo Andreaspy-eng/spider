@@ -32,16 +32,14 @@ namespace spider
         public IEnumerable<InvoiceHeader> getInvoices()
         {
             DateTime thisDay = DateTime.UtcNow;
-            string beforeDay = thisDay.AddDays(-5).ToString("yyyy-MM-dd");
 
-            using (Stream s = _advantageClient.GetStreamAsync(_config["Advantage:Invoices"] + $"?Start={beforeDay}&End={thisDay.ToString("yyyy-MM-dd")}&Codes=Т-р&Codes=Т-Р").Result)
+            using (Stream s = _advantageClient.GetStreamAsync(_config["Advantage:Invoices"] + $"?ShipmentDate={thisDay.ToString("yyyy-MM-dd")}").Result)
             using (StreamReader sr = new StreamReader(s))
             using (JsonReader reader = new JsonTextReader(sr))
             {
                 JsonSerializer serializer = new();
                 var InvoiceList = serializer.Deserialize<IEnumerable<InvoiceHeader>>(reader);
-                return InvoiceList.Where(x => 
-                  x.ShipmentDate.ToString("yyyy-MM-dd")==(thisDay.AddDays(1).ToString("yyyy-MM-dd"))).ToList();
+                return InvoiceList.ToList();
             };
         }
 
@@ -51,7 +49,7 @@ namespace spider
           DateTime dResult = DateTime.ParseExact(thisDay, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
           string beforeDay = dResult.AddDays(-5).ToString("yyyy-MM-dd");
 
-            using (Stream s = _advantageClient.GetStreamAsync(_config["Advantage:Invoices"] + $"?Start={beforeDay}&End={thisDay}&Codes=Т-р&Codes=Т-Р").Result)
+            using (Stream s = _advantageClient.GetStreamAsync(_config["Advantage:Invoices2"] + $"?Start={beforeDay}&End={thisDay}&Codes=Т-р&Codes=Т-Р").Result)
             using (StreamReader sr = new StreamReader(s))
             using (JsonReader reader = new JsonTextReader(sr))
             {
