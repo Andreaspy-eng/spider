@@ -15,7 +15,8 @@ public class IndexModel : spiderPageModel
     private readonly IYandexRoutingService _yandex;
     private readonly ILocarusService _locarus;
     public IEnumerable <Car> _cars;
-    public IEnumerable <InvoiceHeader> _invoices;
+    public IEnumerable <InvoiceHeader> Invoices;
+    public IEnumerable <InvoiceHeader> lastInvoices;
     private IEnumerable<Counterparty> _counterparties;
 
     public IndexModel(IEnumerable<Car> cars)
@@ -33,8 +34,12 @@ public class IndexModel : spiderPageModel
         _yandex = yandex;
         _locarus = locarus;
         _cars = _locarus.GetCars();
-        _invoices = _advantage.getInvoices(DateTime.UtcNow.ToString("yyyy-MM-dd"));
+        var invoices = _advantage.getInvoices();
+        var date = DateTime.UtcNow.AddDays(1).ToString("yyyy-MM-dd");
+        Invoices = invoices.Where(x => x.ShipmentDate.ToString("yyyy-MM-dd")==date).ToList();
+        lastInvoices = invoices.Where(x => x.ShipmentDate.ToString("yyyy-MM-dd")!=date).ToList();
         _counterparties = counterparty.getCounterparties();
+        
     }
 
 
@@ -56,14 +61,14 @@ public class IndexModel : spiderPageModel
         try
         {
             _cars = _locarus.GetCars();
-            _invoices = _advantage.getInvoices();
-            if (_invoices is not null)
+            Invoices = _advantage.getInvoices();
+            if (Invoices is not null)
             {
                 foreach (var counteraprty in _counterparties)
                 {
-                    if (_invoices.Any(x => x.CounterpartyId == counteraprty.codeFromBase))
+                    if (Invoices.Any(x => x.CounterpartyId == counteraprty.codeFromBase))
                     {
-                        var inv=_invoices.FirstOrDefault(x => x.CounterpartyId == counteraprty.codeFromBase);
+                        var inv=Invoices.FirstOrDefault(x => x.CounterpartyId == counteraprty.codeFromBase);
                         counteraprty.InvoiceNumber=$"{inv.CodeOperation}{inv.ComputerNumber}{inv.Date.Year}{inv.DocumentNumber.PadLeft(6)}";
                         FilteredCounterpaties.Add(counteraprty);
                     }

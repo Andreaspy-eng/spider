@@ -5,7 +5,28 @@
   
     <form method="post" asp-page="IndexModel" asp-page-handler="Routes" id="table">
         <div class="container">
-            <div class="row row-cols-2 row-cols-md-3 g-4">
+          <table class="table">
+            <thead>
+              <tr>
+                <th >Дата отгрузки</th>
+                <th >Номер</th>
+                <th >Имя</th>
+                <th >Адрес</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach (var item in Model)
+              {
+                <tr>
+                  <td>@item.ShipmentDate</td>
+                  <td>@item.UniqueId</td>
+                  <td>@item.CounterpartyName</td>
+                  <td>@item.CounterpartyAddress</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+            @* <div class="row row-cols-2 row-cols-md-3 g-4">
               
                 @foreach (var item in Model)
                 {
@@ -16,7 +37,7 @@
                             <input  id="checkboxes" type="checkbox" name="checkboxes" id=@item.ShipmentDate value=@item.ShipmentDate></input>
                             <label for=@item.ShipmentDate id="invoice"> @item.UniqueId</label>
                             @* <label for="surname">Surname</label>
-                            <input type="checkbox" name="surname" id="surname" />  *@
+                            <input type="checkbox" name="surname" id="surname" />  
                           </div>
                       </div>
                       <div class="row text-center">
@@ -25,7 +46,7 @@
                     </div>
                   </div>
                 }
-             </div>
+             </div> *@
         </div>
     </form>
 }

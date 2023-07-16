@@ -31,7 +31,7 @@ namespace spider
         // Send to Yandex
         public IEnumerable<InvoiceHeader> getInvoices()
         {
-            DateTime thisDay = DateTime.UtcNow;
+            DateTime thisDay = DateTime.UtcNow.AddDays(1);
 
             using (Stream s = _advantageClient.GetStreamAsync(_config["Advantage:Invoices"] + $"?ShipmentDate={thisDay.ToString("yyyy-MM-dd")}").Result)
             using (StreamReader sr = new StreamReader(s))
@@ -47,16 +47,14 @@ namespace spider
         public IEnumerable<InvoiceHeader> getInvoices(string thisDay)
         {
           DateTime dResult = DateTime.ParseExact(thisDay, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
-          string beforeDay = dResult.AddDays(-5).ToString("yyyy-MM-dd");
 
-            using (Stream s = _advantageClient.GetStreamAsync(_config["Advantage:Invoices2"] + $"?Start={beforeDay}&End={thisDay}&Codes=Т-р&Codes=Т-Р").Result)
+            using (Stream s = _advantageClient.GetStreamAsync(_config["Advantage:Invoices"] + $"?ShipmentDate={dResult.ToString("yyyy-MM-dd")}").Result)
             using (StreamReader sr = new StreamReader(s))
             using (JsonReader reader = new JsonTextReader(sr))
             {
                 JsonSerializer serializer = new();
                 var InvoiceList = serializer.Deserialize<IEnumerable<InvoiceHeader>>(reader);
-                return InvoiceList.Where(x => 
-                  x.ShipmentDate.ToString("yyyy-MM-dd")==(dResult.AddDays(1).ToString("yyyy-MM-dd"))).ToList();
+                return InvoiceList.ToList();
             };
         }
         public IEnumerable<Driver> GetDrivers()
