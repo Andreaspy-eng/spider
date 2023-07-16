@@ -19,13 +19,31 @@ function SetAllCheckBoxes(obj)
     }
 }
 
-// For Search on Index page
+// For Search cars on Index page
 document.getElementById('search-box').addEventListener("keyup", function()
 
 {
-  t = document.getElementById('search-box'); //
-  let text = t.value.toUpperCase();          //
+  t = document.getElementById('search-box'); 
+  let text = t.value.toUpperCase();          
   c = document.querySelectorAll("[id^='car-model']")
+  for (var i = 0; i < c.length; i++) {
+    a = c[i]
+    txtValue = a.textContent || a.innerText;
+    if (txtValue.toUpperCase().indexOf(text) > -1) {
+      a.parentElement.parentElement.parentElement.style.display = "";
+    } else {
+      a.parentElement.parentElement.parentElement.style.display = "none";
+    }
+  }
+})
+
+// For Search invoice on Index page
+document.getElementById('search-box').addEventListener("keyup", function()
+
+{
+  t = document.getElementById('search-invoices'); 
+  let text = t.value.toUpperCase();          
+  c = document.querySelectorAll("[id^='invoice']")
   for (var i = 0; i < c.length; i++) {
     a = c[i]
     txtValue = a.textContent || a.innerText;

@@ -5,16 +5,18 @@
   
     <form method="post" asp-page="IndexModel" asp-page-handler="Routes" id="table">
         <div class="container">
-            <div class="row row-cols-2 row-cols-md-1 g-4">
+            <div class="row row-cols-2 row-cols-md-3 g-4">
               
                 @foreach (var item in Model)
                 {
                   <div class="col">
-                    <div class="card h-100" id="car-card">
+                    <div class="card h-100" id="invoice-card">
                       <div class="card-header text-center">
                           <div class="col">
                             <input  id="checkboxes" type="checkbox" name="checkboxes" id=@item.ShipmentDate value=@item.ShipmentDate></input>
-                            <label for=@item.UniqueId id="car-model"> @item.UniqueId</label>
+                            <label for=@item.ShipmentDate id="invoice"> @item.UniqueId</label>
+                            @* <label for="surname">Surname</label>
+                            <input type="checkbox" name="surname" id="surname" />  *@
                           </div>
                       </div>
                       <div class="row text-center">

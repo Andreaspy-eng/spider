@@ -91,3 +91,11 @@
     transform: rotate(360deg);
   }
 }
+
+/* For Scroll */
+.test{
+  
+  height: 50vh !important;
+  /* overflow:scroll;
+  overflow-x:hidden; */
+}
