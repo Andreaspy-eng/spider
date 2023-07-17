@@ -10,5 +10,6 @@ namespace spider
         public IEnumerable<InvoiceHeader> getInvoices();
         public IEnumerable<InvoiceHeader> getInvoices(string thisDay);
         public IEnumerable<Driver> GetDrivers();
+        public IEnumerable<Client> GetClients();
     }
 }

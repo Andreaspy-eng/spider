@@ -1,11 +1,30 @@
 ﻿
-// For select all button on Index page
+// For select all cars button on Index page
 function SetAllCheckBoxes(obj)
 {
     var c = new Array();
     var cards = document.querySelectorAll('.show');
     if (cards.length < 1) {
         c = document.getElementsByName("checkboxes");
+    }
+    else {
+        for (var i = 0; i < cards.length; i++) {
+            c.push(cards[i].childNodes[1].firstElementChild);
+        }
+    }
+    for (var i = 0; i < c.length; i++) {
+        if (c[i].type == 'checkbox') {
+            c[i].checked = obj.checked;
+        }
+    }
+}
+// For select all invoices button on Index page
+function SetAllCheckBoxesInvoices(obj)
+{
+    var c = new Array();
+    var cards = document.querySelectorAll('.show');
+    if (cards.length < 1) {
+        c = document.getElementsByName("invoices");
     }
     else {
         for (var i = 0; i < cards.length; i++) {

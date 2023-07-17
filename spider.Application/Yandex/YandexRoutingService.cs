@@ -44,7 +44,7 @@ namespace YandexRouting
         }
 
 
-        public QueryCreateRouteList createQueryToApi(IEnumerable<Counterparty> Clients, IEnumerable<Car> cars) 
+        public QueryCreateRouteList createQueryToApi(IEnumerable<Counterparty> Clients, IEnumerable<Car> cars, IEnumerable<InvoiceHeader> unfilteredOrders) 
         {
             var query = new QueryCreateRouteList();
             query.depot = new Depot()
@@ -99,8 +99,8 @@ namespace YandexRouting
             {
                 var lacalka=new Locations();
                 lacalka.id = client.InvoiceNumber;
-                lacalka.title=client.name is null?"НЕТ ИМЕНИ":client.name;
-                lacalka.description=client.address is null?"НЕТ АДРЕСА":client.address;
+                lacalka.title=client.name is null?"НЕТ ИМЕНИ":client.name.Replace("\""," ");
+                lacalka.description=client.address is null?"НЕТ АДРЕСА":client.address.Replace("\""," ");
                 if (client.latitude == 0.0) client.latitude = 55.733996;
                 if (client.longitude == 0.0) client.longitude= 37.588472;
                 lacalka.point = new Point()
@@ -110,6 +110,39 @@ namespace YandexRouting
                 };
                 if (client.workSchedule is not null && client.workSchedule.Count>0) lacalka.time_window = $"{client.workSchedule.FirstOrDefault().openTime}-{client.workSchedule.FirstOrDefault().closeTime}";
                 else lacalka.time_window = "08:00:00-17:00:00";
+                lacalka.service_duration_s = 600;
+                lacalka.shared_service_duration_s = 300;
+                lacalka.penalty=new()
+                {
+                  early = new()
+                  {
+                    @fixed = 1000
+                  },
+
+                  late = new()
+                  {
+                    @fixed = 1500
+                  },
+
+                  out_of_time = new()
+                  {
+                    @fixed = 2000
+                  }
+                };
+                locations.Add( lacalka );
+            }
+            foreach(var inv in unfilteredOrders)
+            {
+                var lacalka=new Locations();
+                lacalka.id = inv.UniqueId;
+                lacalka.title=inv.CounterpartyName is null?"НЕТ ИМЕНИ":inv.CounterpartyName.Trim().Replace("\""," ");
+                lacalka.description=inv.CounterpartyAddress is null?"НЕТ АДРЕСА":inv.CounterpartyAddress.Trim().Replace("\""," ");
+                lacalka.point = new Point()
+                {
+                    lat =  56.9884970,
+                    lon =  41.0466750,
+                };
+                lacalka.time_window = "08:00:00-17:00:00";
                 lacalka.service_duration_s = 600;
                 lacalka.shared_service_duration_s = 300;
                 lacalka.penalty=new()
@@ -161,7 +194,7 @@ namespace YandexRouting
 
         public YandexRoutingTaskCreatedResponse CreateTask(QueryCreateRouteList query)
         {
-            var content = JsonConvert.SerializeObject(query); 
+            var content = JsonConvert.SerializeObject(query).Replace("\\",""); 
             var requestUri = QueryHelpers.AddQueryString(_config["Yandex:AddTask"],"apikey", _config["Yandex:Key"]);
             var request = new HttpRequestMessage(HttpMethod.Post, requestUri);
             request.Content = new StringContent(

@@ -9,7 +9,7 @@ namespace spider
 {
     public interface IYandexRoutingService
     {
-        public QueryCreateRouteList createQueryToApi(IEnumerable<Counterparty> Clients, IEnumerable<Car> cars);
+        public QueryCreateRouteList createQueryToApi(IEnumerable<Counterparty> Clients, IEnumerable<Car> cars, IEnumerable<InvoiceHeader> unfilteredOrders);
         public YandexRoutingResult GetLastResult();
         public IEnumerable<ResultTokenDTO> GetAll();
         public YandexRoutingTaskCreatedResponse CreateTask(QueryCreateRouteList query);

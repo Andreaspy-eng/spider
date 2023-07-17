@@ -68,5 +68,16 @@ namespace spider
                 return result;
             };
         }
+        public IEnumerable<Client> GetClients()
+        {
+            using (Stream s = _advantageClient.GetStreamAsync("api/Clients/all").Result)
+            using (StreamReader sr = new StreamReader(s))
+            using (JsonReader reader = new JsonTextReader(sr))
+            {
+                JsonSerializer serializer = new();
+                var result = serializer.Deserialize<IEnumerable<Client>>(reader);
+                return result;
+            };
+        }
     }
 }

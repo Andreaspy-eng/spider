@@ -45,7 +45,7 @@ public class IndexModel : spiderPageModel
 
     public void OnGet()
     {
-        _cars = new List<Car>();
+        //_cars = new List<Car>();
     }
 
     public IActionResult OnPostInvoices()
@@ -54,9 +54,11 @@ public class IndexModel : spiderPageModel
         return new IndexModel(_cars).Page();
     }
 
-    public IActionResult OnPostRoutes(string[] checkboxes)
+    public IActionResult OnPostRoutes(string[] checkboxes,List<string> invoices)
     {
-        List<Counterparty> FilteredCounterpaties = new() { };
+        invoices=invoices.Select(x=>x.Replace("_"," ")).ToList();
+        List<Counterparty> FilteredCounterpaties = new() { },WarningCounterparties = new(){};
+        List<InvoiceHeader> FilteredInvoice = new() { };
         List <Car> FilteredCars = new() { };
         try
         {
@@ -64,19 +66,32 @@ public class IndexModel : spiderPageModel
             Invoices = _advantage.getInvoices();
             if (Invoices is not null)
             {
+                foreach(var number in invoices)
+                {
+                    var inv=Invoices.FirstOrDefault(x => x.UniqueId == number);
+                    if(inv is not null)FilteredInvoice.Add(inv);
+                }
+                int count=0;
                 foreach (var counteraprty in _counterparties)
                 {
-                    if (Invoices.Any(x => x.CounterpartyId == counteraprty.codeFromBase))
+                    var inv=FilteredInvoice.FirstOrDefault(x => x.CounterpartyId.Trim() == counteraprty.codeFromBase.Trim());
+                    if(inv is not null)
                     {
-                        var inv=Invoices.FirstOrDefault(x => x.CounterpartyId == counteraprty.codeFromBase);
                         counteraprty.InvoiceNumber=$"{inv.CodeOperation}{inv.ComputerNumber}{inv.Date.Year}{inv.DocumentNumber.PadLeft(6)}";
                         FilteredCounterpaties.Add(counteraprty);
+                        FilteredInvoice.Remove(inv);
                     }
                 }
+                var c=_advantage.GetClients();
+                foreach(var cl in c)
+                {
+                    var cig=_counterparties.FirstOrDefault(x => x.codeFromBase.Trim() == cl.Id.Trim());
+                    if(cig is null)count++;
+                }            
                 FilteredCars = _cars.Where(x => checkboxes.Contains(x.imei)).ToList();
                 if (checkboxes.Length == 0) FilteredCars = _cars.DistinctBy(x => x.number).ToList();
             }
-            var query = _yandex.createQueryToApi(FilteredCounterpaties, FilteredCars);
+            var query = _yandex.createQueryToApi(FilteredCounterpaties, FilteredCars,FilteredInvoice);
             var CreatedTask = _yandex.CreateTask(query);
             var routes = _yandex.GetLastResult();
             return Page();
