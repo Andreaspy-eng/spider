@@ -3,7 +3,25 @@
 :root .lpx-brand-logo {
     --lpx-logo: url('/images/logo/leptonx/logo-light.png');
     --lpx-logo-icon: url('/images/logo/leptonx/logo-light-thumbnail.png');
+    
 }
+::-webkit-scrollbar-corner { background: rgba(0,0,0,0.5); }
+
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: grey, white; 
+    }
+
+    *::-webkit-scrollbar {
+        width: 12px;
+        height: 12px;
+    }
+
+    *::-webkit-scrollbar-thumb {
+        background-color: white;
+        border-radius: 10px;
+        /* border: 3px solid grey; */
+    }
 
 .estimate {
     margin: 5vh 5vh 5vh 5vh;
@@ -92,10 +110,19 @@
   }
 }
 
-/* For Scroll */
-.test{
-  
+/* For Invoice height section */
+.invoice-height{
   height: 50vh !important;
-  /* overflow:scroll;
-  overflow-x:hidden; */
+}
+
+/* For Scroll on IndexPage */
+.vert-scroll
+{
+  overflow-y:scroll;
+  overflow-x:hidden;
+}
+
+.zero-space
+{
+  padding: 0 0 0 0;
 }

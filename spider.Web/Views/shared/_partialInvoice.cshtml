@@ -3,8 +3,8 @@
 @if(Model is not null)
 {
   
-        <div class="container">
-          <table class="table">
+        <div class="container zero-space">
+          <table class="table table-success" style="table-layout:fixed">
             <thead>
               <tr>
                 <td><input type="checkbox" onclick="SetAllCheckBoxesInvoices(this)"></input></td>
@@ -22,7 +22,7 @@
                   <td>@item.ShipmentDate</td>
                   <td>@item.UniqueId</td>
                   <td>@item.CounterpartyName</td>
-                  <td>@item.CounterpartyAddress</td>
+                  <td style="overflow-wrap:break-word">@item.CounterpartyAddress</td>
                 </tr>
               }
             </tbody>

@@ -72,10 +72,10 @@
 
     <section class="split">
       <form method="post" asp-page="IndexModel" asp-page-handler="Routes" id="table">
-      <div class="container-fluid px-0">
+      <div class="container-fluid zero-space px-0">
         <div class="row g-0">
           <div class="col-lg-7 vh-100 ">
-            <div class="row test" style="overflow-y:scroll;">
+            <div class="row invoice-height vert-scroll">
               <div class="input-group">
                         <input class="form-control border-end-0 border rounded-pill"  type="search" id="search-invoices" placeholder="Поиск накладных...">
                         <span>
@@ -84,12 +84,12 @@
                             </button>
                         </span>
                     </div>
-              <div class="container bg-success vh-50" name="todayInvoices">
+              <div class="container container-fluid vh-50" name="todayInvoices">
                 @await Html.PartialAsync("../Views/shared/_partialInvoice",Model.Invoices)
                           <script src="~/site.js" asp-append-version="true"></script>
               </div>
             </div>
-            <div class="row test" style="overflow-y:scroll; overflow-x:hidden;">
+            <div class="row invoice-height vert-scroll">
               <div class="input-group">
                         <input class="form-control border-end-0 border rounded-pill"  type="search" id="search-invoices" placeholder="Поиск иных накладных...">
                         <span>
@@ -98,14 +98,14 @@
                             </button>
                         </span>
                     </div>
-              <div class="container bg-danger vh-50" name="otherInvoices">
+              <div class="container container-fluid vh-50" name="otherInvoices">
                 @await Html.PartialAsync("../Views/shared/_partialInvoice",Model.lastInvoices)
                           <script src="~/site.js" asp-append-version="true"></script>
               </div>
             </div>
-           <!-- </div>  -->
+
           </div>
-          <div class="col-lg-5 vh-100 bg-primary" style="overflow-y:scroll; overflow-x:hidden;">
+          <div class="col-lg-5 vh-100  vert-scroll">
             <div class="row">
               <div class="col-md-5 mx-auto">
                     <div class="input-group">
