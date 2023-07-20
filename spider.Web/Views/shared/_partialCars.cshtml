@@ -13,12 +13,12 @@
                     <div class="card h-100" id="car-card">
                       <div class="card-header text-center">
                           <div class="col">
-                            <input  id="checkboxes" type="checkbox" name="checkboxes" id=@item.number value=@item.imei></input>
-                            <label for=@item.number id="car-model"> @item.model</label>
+                            <input  id="checkboxes" type="checkbox" name="checkboxes-cars" id="item-number" value=@item.imei></input>
+                            <label for="item-number" id="car-model"> @item.model</label>
                           </div>
                       </div>
                       <div class="row text-center">
-                        <p class="card-text">@item.number</p>
+                        <p class="card-text" id="car-number">@item.number</p>
                       </div>
                     </div>
                   </div>

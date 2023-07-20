@@ -1,10 +1,10 @@
 @model IEnumerable<spider.AdvantageModels.InvoiceHeader>;
-
 @if(Model is not null)
 {
+
   
         <div class="container zero-space">
-          <table class="table table-success" style="table-layout:fixed">
+          <table class="table  table-success table-striped table-hover" style="table-layout:fixed">
             <thead>
               <tr>
                 <td><input type="checkbox" onclick="SetAllCheckBoxesInvoices(this)"></input></td>
@@ -17,12 +17,12 @@
             <tbody>
               @foreach (var item in Model)
               {
-                <tr>
+                <tr id = "invoice-card">
                   <td><input  id="checkboxes" type="checkbox" name="invoices" id=@item.UniqueId value=@item.UniqueId.Replace(" ","_")></input></td>
-                  <td>@item.ShipmentDate</td>
+                  <td id = "qwer" >@item.ShipmentDate</td>
                   <td>@item.UniqueId</td>
-                  <td>@item.CounterpartyName</td>
-                  <td style="overflow-wrap:break-word">@item.CounterpartyAddress</td>
+                  <td id = "counterparty-name">@item.CounterpartyName</td>
+                  <td id ="counterparty-address" style="overflow-wrap:break-word">@item.CounterpartyAddress</td>
                 </tr>
               }
             </tbody>

@@ -16,105 +16,97 @@
   }
 </script>
 
+  <div class="preloader">
+    <div class="preloader__image"></div>
+  </div>
 
+  <div class="loader">
+    <div class="loading d-flex justify-content-center"></div>
+  </div>
 
-  
-      @if (ViewData["Error"] is not null)
-      {
-        <div class="alert alert-danger" role="alert">
-            @ViewData["Error"]
-        </div>
-      }
-      <div class="p-4 text-center">
-        <h2>
-          <i>
-            «Деньги дороги, жизнь человеческая дороже, а время дороже всего»
-          </i> 
-        </h2>
+  @if (ViewData["Error"] is not null)
+    {
+      <div class="alert alert-danger" role="alert">
+        @ViewData["Error"]
       </div>
-      <div class="preloader">
-        <div class="preloader__image"></div>
-      </div>
-      <div class="loader">
-        <div class="loading d-flex justify-content-center">
-        </div>
-      </div>
-      <br/> 
+    }
 
-        <div class="col float-end">
-          <form method="post" asp-page="IndexModel" asp-page-handler="Invoices">
-            <button class="btn btn-outline-primary" style="position:fixed" onclick="spinner()">
-              Загрузить список машин
-            </button>
-          </form>
+    <div class="p-4 text-center">
+      <h2>
+        <i>
+          «Деньги дороги, жизнь человеческая дороже, а время дороже всего»
+        </i> 
+      </h2>
+    </div>
 
-                <br /><br />
+     <br/>  <!-- FIXME -->
 
-          <a href="./RoutesList" class="btn btn-outline-success" style="position:fixed">
-            Последний результат
-          </a>
+    <div class="col float-end">
+      <form method="post" asp-page="IndexModel" asp-page-handler="Invoices">
+        <button class="btn btn-outline-primary" style="position:fixed" onclick="spinner()">
+          Загрузить список машин
+        </button>
+      </form>
 
-                <br /><br />
+                <br /><br /> <!-- FIXME -->
 
-          <button class="btn btn-outline-warning" style="position:fixed" type="submit" form="table" onclick="spinner()">
-            Отправка в Яндекс
-          </button>
+      <a href="./RoutesList" class="btn btn-outline-success" style="position:fixed">
+        Последний результат
+      </a>
 
-                <br /><br />
+                <br /><br />  <!-- FIXME -->
 
-          <a href="./History"  class="btn btn-outline-info" style="position:fixed">
-            История запросов
-          </a>
+      <button class="btn btn-outline-warning" style="position:fixed" type="submit" form="table" onclick="spinner()">
+        Отправка в Яндекс
+      </button>
 
-        </div>
+              <br /><br />  <!-- FIXME -->
+
+      <a href="./History"  class="btn btn-outline-info" style="position:fixed">
+        История запросов
+      </a>
+
+    </div>
 
      <!-- START BLOCKS-->
 
-    <section class="split">
-      <form method="post" asp-page="IndexModel" asp-page-handler="Routes" id="table">
-      <div class="container-fluid zero-space px-0">
-        <div class="row g-0">
-          <div class="col-lg-7 vh-100 ">
-            <div class="row invoice-height vert-scroll">
-              <div class="input-group">
-                        <input class="form-control border-end-0 border rounded-pill"  type="search" id="search-invoices" placeholder="Поиск накладных...">
-                        <span>
-                            <button class="btn btn-outline-secondary bg-white border-bottom-0 border rounded-pill ms-n5" id="toggleAll" type="checkbox" onclick="SetAllCheckBoxes(this)">
-                                <i class="fa fa-check-circle-o"></i>
-                            </button>
-                        </span>
-                    </div>
-              <div class="container container-fluid vh-50" name="todayInvoices">
+  <section class="split">
+    <form method="post" asp-page="IndexModel" asp-page-handler="Routes" id="table">
+    <div class="container-fluid zero-space px-0">
+      <div class="row g-0">
+        <div class="col-lg-7 vh-100 ">
+          <div class="input-group mb-1">
+              <input class="form-control border-end-0 border rounded-pill"  type="search" id="search-invoices" placeholder="Поиск накладных...">
+            </div>
+          <div class="row invoice-height vert-scroll mb-4">
+            
+
+            <div class="container container-fluid vh-50 " name="todayInvoices">
                 @await Html.PartialAsync("../Views/shared/_partialInvoice",Model.Invoices)
                           <script src="~/site.js" asp-append-version="true"></script>
               </div>
             </div>
+
             <div class="row invoice-height vert-scroll">
-              <div class="input-group">
-                        <input class="form-control border-end-0 border rounded-pill"  type="search" id="search-invoices" placeholder="Поиск иных накладных...">
-                        <span>
-                            <button class="btn btn-outline-secondary bg-white border-bottom-0 border rounded-pill ms-n5" id="toggleAll" type="checkbox" onclick="SetAllCheckBoxes(this)">
-                                <i class="fa fa-check-circle-o"></i>
-                            </button>
-                        </span>
-                    </div>
               <div class="container container-fluid vh-50" name="otherInvoices">
                 @await Html.PartialAsync("../Views/shared/_partialInvoice",Model.lastInvoices)
-                          <script src="~/site.js" asp-append-version="true"></script>
+                  <script src="~/site.js" asp-append-version="true"></script>
               </div>
             </div>
-
+            
           </div>
+
           <div class="col-lg-5 vh-100  vert-scroll">
             <div class="row">
               <div class="col-md-5 mx-auto">
-                    <div class="input-group">
+                    <div class="input-group mb-1">
                         <input class="form-control border-end-0 border rounded-pill"  type="search" id="search-box" placeholder="Поиск машин...">
-                        <span>
+                        <input id="toggleAll" type="checkbox" onclick="SetAllCheckBoxes(this)" /> 
+                        @* <span>
                             <button class="btn btn-outline-secondary bg-white border-bottom-0 border rounded-pill ms-n5" id="toggleAll" type="checkbox" onclick="SetAllCheckBoxes(this)">
                                 <i class="fa fa-check-circle-o"></i>
                             </button>
-                        </span>
+                        </span> *@
                     </div>
                 </div>
                 <div class="col-md-auto">
