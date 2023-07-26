@@ -44,16 +44,30 @@ namespace spider.Web.Pages
 
         public void OnGet()
         {
-            drivers = _advantage.GetDrivers();
-            routes = _yandex.GetLastResult();
-            if (routes is null) routes = new();
+            try
+            {
+              drivers = _advantage.GetDrivers();
+              routes = _yandex.GetLastResult();
+              if (routes is null) routes = new();
+            }
+            catch(Exception e)
+            {
+              ViewData["Error"] = e.Message;
+            }
         }
 
         public void OnGetDisplay(string id)
         {
-            routes = _yandex.GetResult(id);     
-            drivers = _advantage.GetDrivers();
-            if (routes is null) routes = new();
+            try
+            {
+              routes = _yandex.GetResult(id);     
+              drivers = _advantage.GetDrivers();
+              if (routes is null) routes = new();
+            }
+            catch(Exception e)
+            {
+              ViewData["Error"] = e.Message;
+            }
         }
 
         public IActionResult OnPostRoutes(int id)

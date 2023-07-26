@@ -1,4 +1,4 @@
-@model IEnumerable<spider.AdvantageModels.InvoiceHeader>;
+@model InvoicePartialModel;
 @if(Model is not null)
 {
 
@@ -7,7 +7,14 @@
           <table class="table  table-success table-striped table-hover" style="table-layout:fixed">
             <thead>
               <tr>
-                <td><input type="checkbox" onclick="SetAllCheckBoxesInvoices(this)"></input></td>
+                @if(Model.isTodayInvoices)
+                {
+                  <td><input type="checkbox" onclick="SetAllCheckBoxesTodayInvoices(this)"></input></td>
+                  }
+                else 
+                {
+                  <td><input type="checkbox" onclick="SetAllCheckBoxesOtherInvoices(this)"></input></td>
+                  }
                 <th >Дата отгрузки</th>
                 <th >Номер</th>
                 <th >Имя</th>
@@ -15,10 +22,10 @@
               </tr>
             </thead>
             <tbody>
-              @foreach (var item in Model)
+              @foreach (var item in Model.Invoices)
               {
                 <tr id = "invoice-card">
-                  <td><input  id="checkboxes" type="checkbox" name="invoices" id=@item.UniqueId value=@item.UniqueId.Replace(" ","_")></input></td>
+                  <td><input type="checkbox" name="invoices" id=@Model.Id value=@item.UniqueId.Replace(" ","_")></input></td>
                   <td id = "qwer" >@item.ShipmentDate</td>
                   <td>@item.UniqueId</td>
                   <td id = "counterparty-name">@item.CounterpartyName</td>

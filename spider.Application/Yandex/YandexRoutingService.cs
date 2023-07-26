@@ -177,6 +177,24 @@ namespace YandexRouting
                     .Items.OrderBy(x=>x.CreationDate)
                     .Last().yandex_id;
                 var respond = GetResult(task);
+                if(respond is not null )
+                {
+                    if(respond.result is null)
+                    {
+                      throw new Exception(respond.message);
+                    }
+                        var pizda = new PagedAndSortedResultRequestDto() { MaxResultCount=1000};
+                        var assigned = _assignedRoutesService
+                            .GetListAsync(pizda).Result.Items.Where(x => x.yandex_id == respond.id);
+                        if(assigned != null )
+                        {
+                            foreach( var route in assigned )
+                            {
+                                respond.result.routes.Find(x => x.vehicle_id == route.vehicle_id)
+                                    .vehicle_driver = route.driver_name;
+                            }
+                        }
+                }
                 return respond;
             }
             catch(Exception e)
@@ -215,8 +233,9 @@ namespace YandexRouting
                 return res;
             }
             else
-            {
-                return default;
+            {      
+                var res = response.Content.ReadAsStringAsync().Result;
+                throw new Exception(response.StatusCode+"\n"+response.ReasonPhrase+"\n"+res);
             }
         }
         
@@ -227,6 +246,10 @@ namespace YandexRouting
             var respond= GetData<YandexRoutingResult>(path);
             if(respond != null )
             {
+                if(respond.result is null)
+                {
+                  throw new Exception(respond.message);
+                }
                     var pizda = new PagedAndSortedResultRequestDto() { MaxResultCount=1000};
                     var assigned = _assignedRoutesService
                         .GetListAsync(pizda).Result.Items.Where(x => x.yandex_id == respond.id);

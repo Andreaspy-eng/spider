@@ -1,9 +1,9 @@
 ﻿@page
 @model spider.Web.Pages.RoutesListModel
-@section scripts
+@* @section scripts
 {
     <abp-script src="/Pages/RoutesList.js" />
-}
+} *@
 @{
     int i = 0;
     if (Model.routes.message == "Task is running and available for polling")
@@ -13,7 +13,14 @@
             <a href="https://yandex.ru/courier/companies/31415/depots/all/mvrp/@Model.routes.id" class="btn btn-outline-warning" target="_blank">Перейти в Яндекс</a>
         </div>
     }
-    if(Model.routes.result is not null)
+    if (ViewData["Error"] is not null)
+    {
+      <div class="alert alert-danger" role="alert">
+        @ViewData["Error"]<br>
+        <a href="https://yandex.ru/courier/companies/31415/depots/all/mvrp/@Model.routes.id"></a>
+      </div>
+    }
+    if(Model.routes.result is not null && Model.routes.result.routes.Count>0)
     {
         <h1 class="text-center">Путевые листы</h1>
             <br /> //FIXME

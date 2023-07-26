@@ -3,15 +3,8 @@
 function SetAllCheckBoxes(obj)
 {
     var c = new Array();
-    var cards = document.querySelectorAll('.show');
-    if (cards.length < 1) {
-        c = document.getElementsByName("checkboxes-cars");
-    }
-    else {
-        for (var i = 0; i < cards.length; i++) {
-            c.push(cards[i].childNodes[1].firstElementChild);
-        }
-    }
+    c = document.getElementsByName("checkboxes");
+  
     for (var i = 0; i < c.length; i++) {
         if (c[i].type == 'checkbox') {
             c[i].checked = obj.checked;
@@ -19,18 +12,10 @@ function SetAllCheckBoxes(obj)
     }
 }
 // For select all invoices button on Index page
-function SetAllCheckBoxesInvoices(obj)
+function SetAllCheckBoxesTodayInvoices(obj)
 {
     var c = new Array();
-    var cards = document.querySelectorAll('.show');
-    if (cards.length < 1) {
-        c = document.getElementsByName("invoices");
-    }
-    else {
-        for (var i = 0; i < cards.length; i++) {
-            c.push(cards[i].childNodes[1].firstElementChild);
-        }
-    }
+    c = document.querySelectorAll("[id^='checkboxes-today']");
     for (var i = 0; i < c.length; i++) {
         if (c[i].type == 'checkbox') {
             c[i].checked = obj.checked;
@@ -38,6 +23,16 @@ function SetAllCheckBoxesInvoices(obj)
     }
 }
 
+function SetAllCheckBoxesOtherInvoices(obj)
+{
+    var c = new Array();
+    c = document.querySelectorAll("[id^='checkboxes-other']");
+    for (var i = 0; i < c.length; i++) {
+        if (c[i].type == 'checkbox') {
+            c[i].checked = obj.checked;
+        }
+    }
+}
 // For Search cars on Index page
 document.getElementById('search-box').addEventListener("keyup", function()
 

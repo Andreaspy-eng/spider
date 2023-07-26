@@ -30,7 +30,15 @@
         @ViewData["Error"]
       </div>
     }
-
+  @if (TempData["info"] is not null)
+    {
+      <div class="alert alert-success row" 
+        alert-dismissible fade show" role="alert">
+        <strong class="col">@Html.Raw(TempData["info"])</strong>
+          <button type="button" class="btn-close d-flex justify-content-end" 
+            data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    }
     <div class="p-4 text-center">
       <h2>
         <i>
@@ -82,14 +90,14 @@
             
 
             <div class="container container-fluid vh-50 " name="todayInvoices">
-                @await Html.PartialAsync("../Views/shared/_partialInvoice",Model.Invoices)
+                @await Html.PartialAsync("../Views/shared/_partialInvoice",new InvoicePartialModel(){Invoices=Model.Invoices,isTodayInvoices=true})
                           <script src="~/site.js" asp-append-version="true"></script>
               </div>
             </div>
 
             <div class="row invoice-height vert-scroll">
               <div class="container container-fluid vh-50" name="otherInvoices">
-                @await Html.PartialAsync("../Views/shared/_partialInvoice",Model.lastInvoices)
+                @await Html.PartialAsync("../Views/shared/_partialInvoice",new InvoicePartialModel(){Invoices=Model.lastInvoices,isTodayInvoices=false})
                   <script src="~/site.js" asp-append-version="true"></script>
               </div>
             </div>
@@ -101,12 +109,6 @@
               <div class="col-md-5 mx-auto">
                     <div class="input-group mb-1">
                         <input class="form-control border-end-0 border rounded-pill"  type="search" id="search-box" placeholder="Поиск машин...">
-                        <input id="toggleAll" type="checkbox" onclick="SetAllCheckBoxes(this)" /> 
-                        @* <span>
-                            <button class="btn btn-outline-secondary bg-white border-bottom-0 border rounded-pill ms-n5" id="toggleAll" type="checkbox" onclick="SetAllCheckBoxes(this)">
-                                <i class="fa fa-check-circle-o"></i>
-                            </button>
-                        </span> *@
                     </div>
                 </div>
                 <div class="col-md-auto">

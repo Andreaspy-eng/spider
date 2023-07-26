@@ -46,7 +46,7 @@ namespace spider
         // Get by date from Yandex result
         public IEnumerable<InvoiceHeader> getInvoices(string thisDay)
         {
-          DateTime dResult = DateTime.ParseExact(thisDay, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+          DateTime dResult = DateTime.ParseExact(thisDay, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture).AddDays(1);
 
             using (Stream s = _advantageClient.GetStreamAsync(_config["Advantage:Invoices"] + $"?ShipmentDate={dResult.ToString("yyyy-MM-dd")}").Result)
             using (StreamReader sr = new StreamReader(s))
