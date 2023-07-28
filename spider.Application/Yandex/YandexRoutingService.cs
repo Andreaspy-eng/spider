@@ -44,7 +44,7 @@ namespace YandexRouting
         }
 
 
-        public QueryCreateRouteList createQueryToApi(IEnumerable<Counterparty> Clients, IEnumerable<Car> cars, IEnumerable<InvoiceHeader> unfilteredOrders) 
+        public QueryCreateRouteList createQueryToApi(IEnumerable<Counterparty> Clients, IEnumerable<Car> cars, IEnumerable<InvoiceHeader> unfilteredOrders, IEnumerable<InvoiceHeader> all) 
         {
             var query = new QueryCreateRouteList();
             query.depot = new Depot()
@@ -75,14 +75,8 @@ namespace YandexRouting
                 lacalka.name = car.model;
                 lacalka.capacity = new Shipment()
                 {
-                    weight_kg = (int)car.maxWeight,
-                    units=10,
-                    volume=new () 
-                    {
-                        width_m=1.9,
-                        depth_m= 2.7,
-                        height_m= 1.5
-                    }
+                    weight_kg = (int)car.maxWeight<1?5000:(int)car.maxWeight,
+                    units=(int)car.maxPackageCount<1?450:(int)car.maxPackageCount,
                 };
 
                 vehicles.Add(lacalka);
@@ -91,12 +85,14 @@ namespace YandexRouting
 
             query.options = new spider.YandexApi.Options()
             {
-                quality = "low",                              //FIXME Вынести в интерфейс
+                quality = "normal",
+                routing_mode="truck"                              //FIXME Вынести в интерфейс
             };
 
             var locations = new List<Locations>();
             foreach(var client in Clients) 
             {
+                var inv=all.FirstOrDefault(x => x.UniqueId == client.InvoiceNumber);
                 var lacalka=new Locations();
                 lacalka.id = client.InvoiceNumber;
                 lacalka.title=client.name is null?"НЕТ ИМЕНИ":client.name.Replace("\""," ");
@@ -110,6 +106,14 @@ namespace YandexRouting
                 };
                 if (client.workSchedule is not null && client.workSchedule.Count>0) lacalka.time_window = $"{client.workSchedule.FirstOrDefault().openTime}-{client.workSchedule.FirstOrDefault().closeTime}";
                 else lacalka.time_window = "08:00:00-17:00:00";
+                if(inv is not null)
+                {
+                    lacalka.shipment_size=new()
+                    {
+                        weight_kg=Math.Abs((int)inv.WeightAll),
+                        units=Math.Abs(inv.CountAll)
+                    };
+                }
                 lacalka.service_duration_s = 600;
                 lacalka.shared_service_duration_s = 300;
                 lacalka.penalty=new()
@@ -142,6 +146,14 @@ namespace YandexRouting
                     lat =  56.9884970,
                     lon =  41.0466750,
                 };
+                if(inv is not null)
+                {
+                    lacalka.shipment_size=new()
+                    {
+                        weight_kg=Math.Abs((int)inv.WeightAll),
+                        units=Math.Abs(inv.CountAll)
+                    };
+                }
                 lacalka.time_window = "08:00:00-17:00:00";
                 lacalka.service_duration_s = 600;
                 lacalka.shared_service_duration_s = 300;

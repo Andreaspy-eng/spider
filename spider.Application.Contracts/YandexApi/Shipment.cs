@@ -9,7 +9,7 @@ namespace spider.YandexApi
     {
         public int weight_kg { get; set; }
         public object units { get; set; }
-        public Volume volume { get; set; }
+        /*public Volume volume { get; set; }*/
     }
 
     public class Volume

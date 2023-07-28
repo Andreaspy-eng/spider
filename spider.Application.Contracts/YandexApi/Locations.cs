@@ -15,7 +15,7 @@ namespace spider.YandexApi;
             /// время на вручение заказа получателю.
             public int service_duration_s { get; set; }
 
-           /* public Shipment shipment_size{ get; set; }*/
+           public Shipment shipment_size{ get; set; }
             public string time_window { get; set; }
             public string description { get; set; }
             public Penalty penalty { get; set; }

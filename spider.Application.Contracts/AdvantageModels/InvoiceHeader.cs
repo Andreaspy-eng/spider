@@ -46,5 +46,25 @@ namespace spider.AdvantageModels
         public string SRC_DOC_ID { get; set; }
 
         public List<InvoiceBody> Details { get; set; }
+        public decimal WeightAll {
+            get {
+                decimal w_all=0;
+                foreach(var p in Details)
+                {
+                    w_all+=p.Weight;
+                }
+                return w_all;
+            }
+        }
+        public decimal CountAll {
+            get {
+                decimal c_all=0;
+                foreach(var p in Details)
+                {
+                    c_all+=p.PackageCount;
+                }
+                return c_all;
+            }
+        }
     }
 }

@@ -122,7 +122,8 @@ namespace spider.Web.Pages
             { 
               List<string> points = new();
               string DriverCode = item.vehicle_driver.Substring(0,2);
-              string path=@$"\\{_config["App:FTP"]}\{_config["App:DriverFolder"]}\{DriverCode}"; 
+              //string path=@$"\\{_config["App:FTP"]}\{_config["App:DriverFolder"]}\{DriverCode}"; 
+              string path=@$"C:\\CA_2012\\TXTFILES";
               var tps=item.route.Where(x=>x.node.@type!="depot");
               int i = 1;
               foreach(var tp in tps)

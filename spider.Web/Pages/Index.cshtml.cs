@@ -119,7 +119,7 @@ public class IndexModel : spiderPageModel
                 FilteredCars = _cars.Where(x => checkboxes.Contains(x.imei)).ToList();
                 if (checkboxes.Length == 0) FilteredCars = _cars.DistinctBy(x => x.number).ToList();
             }
-            var query = _yandex.createQueryToApi(FilteredCounterpaties, FilteredCars,FilteredInvoice);
+            var query = _yandex.createQueryToApi(FilteredCounterpaties, FilteredCars,FilteredInvoice,Invoices);
             var CreatedTask = _yandex.CreateTask(query);
             var routes = _yandex.GetLastResult();
             TempData["info"]=$"Успешно отправлено в Яндекс. Машин:{FilteredCars.Count}  Накладных:{countInvoice} ";

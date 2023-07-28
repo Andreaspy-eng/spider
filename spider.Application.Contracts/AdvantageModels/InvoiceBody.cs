@@ -9,6 +9,7 @@ namespace spider.AdvantageModels
     /// </summary>
     public class InvoiceBody
     {
+        
         public string ProductId { get; set; }
 
         public decimal Price { get; set; }
@@ -18,5 +19,6 @@ namespace spider.AdvantageModels
         public decimal PackageCount { get; set; }
 
         public Product Product { get; set; }
+        public decimal Weight {get {return Count*Product.Weight;}}
     }
 }
