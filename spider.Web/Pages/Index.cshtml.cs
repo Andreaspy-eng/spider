@@ -102,12 +102,16 @@ public class IndexModel : spiderPageModel
                 int count=0;
                 foreach (var counteraprty in _counterparties)
                 {
-                    var inv=FilteredInvoice.FirstOrDefault(x => x.CounterpartyId.Trim() == counteraprty.codeFromBase.Trim());
+                    var inv=FilteredInvoice.Where(x => x.CounterpartyId.Trim() == counteraprty.codeFromBase.Trim()).ToList();
                     if(inv is not null)
                     {
-                        counteraprty.InvoiceNumber=$"{inv.CodeOperation}{inv.ComputerNumber}{inv.Date.Year}{inv.DocumentNumber.PadLeft(6)}";
-                        FilteredCounterpaties.Add(counteraprty);
-                        FilteredInvoice.Remove(inv);
+                        foreach(var i in inv)
+                        {
+                          if(counteraprty.InvoiceNumber is null)counteraprty.InvoiceNumber=new(){};
+                          counteraprty.InvoiceNumber.Add($"{i.CodeOperation}{i.ComputerNumber}{i.Date.Year}{i.DocumentNumber.PadLeft(6)}");
+                          FilteredCounterpaties.Add(counteraprty);
+                          FilteredInvoice.Remove(i);
+                        }
                     }
                 }
                 var c=_advantage.GetClients();
@@ -119,7 +123,7 @@ public class IndexModel : spiderPageModel
                 FilteredCars = _cars.Where(x => checkboxes.Contains(x.imei)).ToList();
                 if (checkboxes.Length == 0) FilteredCars = _cars.DistinctBy(x => x.number).ToList();
             }
-            var query = _yandex.createQueryToApi(FilteredCounterpaties, FilteredCars,FilteredInvoice,Invoices);
+            var query = _yandex.createQueryToApi(FilteredCounterpaties.DistinctBy(x=>x.codeFromBase), FilteredCars,FilteredInvoice,Invoices);
             var CreatedTask = _yandex.CreateTask(query);
             var routes = _yandex.GetLastResult();
             TempData["info"]=$"Успешно отправлено в Яндекс. Машин:{FilteredCars.Count}  Накладных:{countInvoice} ";

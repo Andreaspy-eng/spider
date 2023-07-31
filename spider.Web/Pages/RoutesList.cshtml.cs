@@ -117,18 +117,17 @@ namespace spider.Web.Pages
             routes = _yandex.GetResult(id);     
             List<string> numbers = new ();
             
-            var inv= _advantage.getInvoices(routes.result.options.date).GroupBy(p => p.CounterpartyId);
+            var inv= _advantage.getInvoices(routes.result.options.date).GroupBy(p => p.CounterpartyId).ToList();
             foreach (var item in routes.result.routes)
             { 
               List<string> points = new();
               string DriverCode = item.vehicle_driver.Substring(0,2);
-              //string path=@$"\\{_config["App:FTP"]}\{_config["App:DriverFolder"]}\{DriverCode}"; 
-              string path=@$"C:\\CA_2012\\TXTFILES";
+              string path=@$"{_config["App:FTP"]}\{_config["App:DriverFolder"]}\{DriverCode}"; 
               var tps=item.route.Where(x=>x.node.@type!="depot");
               int i = 1;
               foreach(var tp in tps)
               {
-                var clientInv = inv.FirstOrDefault(x=>x.Key==tp.node.value.id).ToList();
+                var clientInv = inv.FirstOrDefault(x=>x.Key==tp.node.value.@ref).ToList();
                 foreach(var one in clientInv)
                 {
                   if(one is not null)points.Add(one.UniqueId.Replace(" ",string.Empty)+";"+i); 

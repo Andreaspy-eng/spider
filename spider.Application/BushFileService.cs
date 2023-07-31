@@ -20,13 +20,15 @@ public  class BushFileService
 
         Directory.CreateDirectory(folderPath);
 
-        string textFile = Path.Combine(folderPath,$"{DateTime.UtcNow.ToString("yyyyMMddHHmm")}.bak");
-
-        using (StreamWriter text = File.CreateText(textFile))
+        string textFile = Path.Combine(folderPath,$"{DateTime.UtcNow.ToString("yyyyMMddHHmm")}.dat");
+        using(FileStream f=new(textFile, FileMode.OpenOrCreate))
         {
-            foreach (string item in numbers)
+            using (StreamWriter text = new((f),Encoding.GetEncoding(1251)))
             {
-                text.WriteLine(item);
+                foreach (string item in numbers)
+                {
+                    text.WriteLine(item);
+                }
             }
         }
       }

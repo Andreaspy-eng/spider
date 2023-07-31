@@ -28,7 +28,7 @@
                   <td><input type="checkbox" name="invoices" id=@Model.Id value=@item.UniqueId.Replace(" ","_")></input></td>
                   <td id = "qwer" >@item.ShipmentDate</td>
                   <td>@item.UniqueId</td>
-                  <td id = "counterparty-name">@item.CounterpartyName</td>
+                  <td id = "counterparty-name" style="overflow-wrap:break-word">@item.CounterpartyName</td>
                   <td id ="counterparty-address" style="overflow-wrap:break-word">@item.CounterpartyAddress</td>
                 </tr>
               }

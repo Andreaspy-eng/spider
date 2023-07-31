@@ -1,7 +1,9 @@
 ﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using Autofac.Core;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -14,6 +16,11 @@ public class Program
 {
     public async static Task<int> Main(string[] args)
     {
+          var configuration = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json")
+            .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", true);
+            
         Log.Logger = new LoggerConfiguration()
 #if DEBUG
            // .MinimumLevel.Debug()
@@ -30,14 +37,18 @@ public class Program
         try
         {
             Log.Information("Starting web host.");
+            
             var builder = WebApplication.CreateBuilder(args);
-            builder.Host.AddAppSettingsSecretsJson()
+            builder.Host
+                .AddAppSettingsSecretsJson()
                 .UseAutofac()
                 .UseSerilog();
+            builder.Configuration.AddConfiguration(configuration.Build());
             builder.Services.AddHttpClient<IAdvantageService, AdvantageService>();
             builder.Services.AddHttpClient<ILocarusService, LocarusService>();
             builder.Services.AddHttpClient<ICounterpartyService, CounterpartyService>();
             builder.Services.AddHttpClient<IYandexRoutingService, YandexRoutingService>();
+            builder.Services.AddAuthentication();
             await builder.AddApplicationAsync<spiderWebModule>();
             var app = builder.Build();
             await app.InitializeApplicationAsync();

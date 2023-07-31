@@ -2,7 +2,8 @@
 @using spider.Web.Pages;
 @model RouteModel;
 @{
-    <h1 class="text-center">Поездка</h1>
+    <h1 class="text-center">Поездка </h1>
+    <a class="btn btn-primary" href='javascript:history.go(-1)'>Назад</a>
     <br />
     <div class="container">
         <div class="row row-cols-2 row-cols-md-3 g-4">
@@ -12,9 +13,11 @@
                 <div class="col">
                     <div target="_blank" class="card h-100">
                         <div class="card-header">
-                         @Model.clients.Where(x=>x.codeFromBase==@item.node.value.id).FirstOrDefault().name
+                            @item.node.value.id
                         </div>
                         <div class="card-body">
+                            @Model.clients.Where(x=>x.codeFromBase==@item.node.value.@ref).FirstOrDefault().name
+                            <br><br>
                             @item.node.used_time_window
                         </div>          
                     </div>

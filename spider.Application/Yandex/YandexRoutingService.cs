@@ -86,60 +86,87 @@ namespace YandexRouting
             query.options = new spider.YandexApi.Options()
             {
                 quality = "normal",
-                routing_mode="truck"                              //FIXME Вынести в интерфейс
+                routing_mode="truck",
+                date=DateTime.UtcNow.AddDays(1).ToString("yyyy-MM-dd")                              //FIXME Вынести в интерфейс
             };
 
             var locations = new List<Locations>();
             foreach(var client in Clients) 
             {
-                var inv=all.FirstOrDefault(x => x.UniqueId == client.InvoiceNumber);
-                var lacalka=new Locations();
-                lacalka.id = client.InvoiceNumber;
-                lacalka.title=client.name is null?"НЕТ ИМЕНИ":client.name.Replace("\""," ");
-                lacalka.description=client.address is null?"НЕТ АДРЕСА":client.address.Replace("\""," ");
-                if (client.latitude == 0.0) client.latitude = 55.733996;
-                if (client.longitude == 0.0) client.longitude= 37.588472;
-                lacalka.point = new Point()
+                foreach(var number in client.InvoiceNumber)
                 {
-                    lat = client.latitude,
-                    lon = client.longitude,
-                };
-                if (client.workSchedule is not null && client.workSchedule.Count>0) lacalka.time_window = $"{client.workSchedule.FirstOrDefault().openTime}-{client.workSchedule.FirstOrDefault().closeTime}";
-                else lacalka.time_window = "08:00:00-17:00:00";
-                if(inv is not null)
-                {
-                    lacalka.shipment_size=new()
+                    var lacalka=new Locations();
+                    lacalka.id = number;
+                    lacalka.title=client.name is null?"НЕТ ИМЕНИ":client.name.Replace("\""," ");
+                    lacalka.clientId=client.codeFromBase;
+                    lacalka.description=client.address is null?"НЕТ АДРЕСА":client.address.Replace("\""," ");
+                    if (client.latitude == 0.0) client.latitude = 55.733996;
+                    if (client.longitude == 0.0) client.longitude= 37.588472;
+                    lacalka.point = new Point()
                     {
-                        weight_kg=Math.Abs((int)inv.WeightAll),
-                        units=Math.Abs(inv.CountAll)
+                        lat = client.latitude,
+                        lon = client.longitude,
                     };
+                    if (client.workSchedule is not null && client.workSchedule.Count>0)
+                    {
+                        if(lacalka.time_windows is null)lacalka.time_windows=new();
+                        lacalka.time_windows.Add( 
+                            new spider.YandexApi.Result.TimeWindow()
+                            {
+                                time_window=$"{client.workSchedule.FirstOrDefault().openTime}-{client.workSchedule.FirstOrDefault().closeTime}",
+                                hard_time_window=$"{client.workSchedule.FirstOrDefault().openTime}-{client.workSchedule.FirstOrDefault().closeTime}"
+                            }
+                        );
+                    }
+                    else 
+                    {
+                        if(lacalka.time_windows is null)lacalka.time_windows=new();
+                        lacalka.time_windows.Add( 
+                            new spider.YandexApi.Result.TimeWindow()
+                            {
+                                time_window="08:00-17:00",
+                                hard_time_window="08:00-17:00",
+                            }
+                        );
+                    }
+                    var inv=all.FirstOrDefault(x => x.UniqueId == number);
+                    if(inv is not null)
+                    {
+                        lacalka.shipment_size=new()
+                        {
+                            weight_kg=Math.Abs((int)inv.WeightAll),
+                            units=Math.Abs(inv.CountAll)
+                        };
+                    }
+                    lacalka.service_duration_s = Convert.ToInt32(_config["App:TimeForOrder"]);
+                    lacalka.shared_service_duration_s =  Convert.ToInt32(_config["App:TimeForAdress"]);
+                    lacalka.penalty=new()
+                    {
+                    early = new()
+                    {
+                        @fixed = 0
+                    },
+
+                    late = new()
+                    {
+                        @fixed = _config["Penalty:fixed"] is null ? 2000: Convert.ToInt32(_config["Penalty:fixed"]),
+                        minute = _config["Penalty:minute"] is null ? 100:Convert.ToInt32(_config["Penalty:minute"])
+                    },
+
+                    out_of_time = new()
+                    {
+                        @fixed = 0
+                    }
+                    };
+                    locations.Add( lacalka );
                 }
-                lacalka.service_duration_s = 600;
-                lacalka.shared_service_duration_s = 300;
-                lacalka.penalty=new()
-                {
-                  early = new()
-                  {
-                    @fixed = 1000
-                  },
-
-                  late = new()
-                  {
-                    @fixed = 1500
-                  },
-
-                  out_of_time = new()
-                  {
-                    @fixed = 2000
-                  }
-                };
-                locations.Add( lacalka );
             }
             foreach(var inv in unfilteredOrders)
             {
                 var lacalka=new Locations();
                 lacalka.id = inv.UniqueId;
                 lacalka.title=inv.CounterpartyName is null?"НЕТ ИМЕНИ":inv.CounterpartyName.Trim().Replace("\""," ");
+                lacalka.clientId=inv.CounterpartyId;
                 lacalka.description=inv.CounterpartyAddress is null?"НЕТ АДРЕСА":inv.CounterpartyAddress.Trim().Replace("\""," ");
                 lacalka.point = new Point()
                 {
@@ -154,24 +181,32 @@ namespace YandexRouting
                         units=Math.Abs(inv.CountAll)
                     };
                 }
-                lacalka.time_window = "08:00:00-17:00:00";
-                lacalka.service_duration_s = 600;
-                lacalka.shared_service_duration_s = 300;
+                if(lacalka.time_windows is null)lacalka.time_windows=new();
+                lacalka.time_windows.Add( 
+                    new spider.YandexApi.Result.TimeWindow()
+                    {
+                        time_window="08:00-17:00",
+                        hard_time_window="08:00-17:00",
+                    }
+                );
+                lacalka.service_duration_s = Convert.ToInt32(_config["App:TimeForOrder"]);
+                lacalka.shared_service_duration_s = Convert.ToInt32(_config["App:TimeForAdress"]);
                 lacalka.penalty=new()
                 {
                   early = new()
                   {
-                    @fixed = 1000
+                    @fixed = 0
                   },
 
-                  late = new()
-                  {
-                    @fixed = 1500
-                  },
+                    late = new()
+                    {
+                        @fixed = _config["Penalty:fixed"] is null ? 2000: Convert.ToInt32(_config["Penalty:fixed"]),
+                        minute = _config["Penalty:minute"] is null ? 100:Convert.ToInt32(_config["Penalty:minute"])
+                    },
 
                   out_of_time = new()
                   {
-                    @fixed = 2000
+                    @fixed = 0
                   }
                 };
                 locations.Add( lacalka );

@@ -11,5 +11,6 @@ namespace spider.YandexApi
         public string quality { get; set; }
         [DefaultValue("truck")]
         public string routing_mode { get; set; }
+        public string date { get; set; }
     }
 }

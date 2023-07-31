@@ -9,6 +9,8 @@ namespace spider.YandexApi;
         {
             public string title { get; set; }
             public string id { get; set; }
+             [JsonProperty("ref")]
+            public string clientId { get; set; }
             public Point point { get; set; }
             /// время на обмен документами или парковку
             public int shared_service_duration_s { get; set; }
@@ -16,7 +18,8 @@ namespace spider.YandexApi;
             public int service_duration_s { get; set; }
 
            public Shipment shipment_size{ get; set; }
-            public string time_window { get; set; }
+           /* public string time_window { get; set; }*/
+            public List<Result.TimeWindow> time_windows{get;set;}
             public string description { get; set; }
             public Penalty penalty { get; set; }
            /*
