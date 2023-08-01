@@ -115,22 +115,20 @@ namespace spider.Web.Pages
         public void OnPostTextFile(string id)
         {
             routes = _yandex.GetResult(id);     
-            List<string> numbers = new ();
-            
-            var inv= _advantage.getInvoices(routes.result.options.date).GroupBy(p => p.CounterpartyId).ToList();
+            List<string> numbers = new ();  
+            //var inv= _advantage.getInvoices(routes.result.options.date).GroupBy(p => p.CounterpartyId).ToList();
             foreach (var item in routes.result.routes)
             { 
               List<string> points = new();
               string DriverCode = item.vehicle_driver.Substring(0,2);
-              string path=@$"{_config["App:FTP"]}\{_config["App:DriverFolder"]}\{DriverCode}"; 
-              var tps=item.route.Where(x=>x.node.@type!="depot");
+              string path=@$"\\{_config["App:FTP"]}\{_config["App:DriverFolder"]}\{DriverCode}"; 
+              var tps=item.route.Where(x=>x.node.@type!="depot").GroupBy(p => p.node.value.@ref);
               int i = 1;
               foreach(var tp in tps)
               {
-                var clientInv = inv.FirstOrDefault(x=>x.Key==tp.node.value.@ref).ToList();
-                foreach(var one in clientInv)
+                foreach(var one in tp)
                 {
-                  if(one is not null)points.Add(one.UniqueId.Replace(" ",string.Empty)+";"+i); 
+                  if(one is not null)points.Add(one.node.value.id.Replace(" ",string.Empty)+";"+i); 
                 }
                 i++;
               }
