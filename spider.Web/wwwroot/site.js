@@ -1,16 +1,16 @@
 ﻿
 // For select all cars button on Index page
-function SetAllCheckBoxes(obj)
-{
-    var c = new Array();
-    c = document.getElementsByName("checkboxes");
-  
-    for (var i = 0; i < c.length; i++) {
-        if (c[i].type == 'checkbox') {
-            c[i].checked = obj.checked;
-        }
-    }
-}
+// function SetAllCheckBoxes(obj)
+// {
+//     var c = new Array();
+//     c = document.getElementsByName("checkboxes"); 
+//     for (var i = 0; i < c.length; i++) {
+//         if (c[i].type == 'checkbox') {
+//             c[i].checked = obj.checked;
+//         }
+//     }
+// }
+
 // For select all invoices button on Index page
 function SetAllCheckBoxesTodayInvoices(obj)
 {
@@ -33,9 +33,9 @@ function SetAllCheckBoxesOtherInvoices(obj)
         }
     }
 }
+
 // For Search cars on Index page
 document.getElementById('search-box').addEventListener("keyup", function()
-
 {
   t = document.getElementById('search-box'); 
   let text = t.value.toUpperCase();
@@ -98,19 +98,19 @@ function clickTr(event) {
     }
 }
 
-// Checked by click on card
-var cards = document.querySelectorAll("[id^='car-card']"),
-    i = cards.length;
+// // Checked by click on card
+//  var cards = document.querySelectorAll("[id^='car-card']"),
+//     i = cards.length;
 
-while (i--) {
-  cards[i].onclick = clickCard;
-}
+//  while (i--) {
+//    cards[i].onclick = clickCard;
+//  }
 
-function clickCard(event) {
-    var inputs = this.getElementsByTagName('input');
-    for (var x = 0; x < inputs.length; x++) {
-        if (inputs[x] !== event.target && inputs[x].type == 'checkbox') {
-            inputs[x].checked = !(inputs[x].checked);
-        }
-    }
-}
+//  function clickCard(event) {
+//      var inputs = this.getElementsByTagName('input');
+//      for (var x = 0; x < inputs.length; x++) {
+//          if (inputs[x] !== event.target && inputs[x].type == 'checkbox') {
+//              inputs[x].checked = !(inputs[x].checked);
+//          }
+//      }
+//  }
