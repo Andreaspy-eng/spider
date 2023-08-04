@@ -10,6 +10,7 @@ namespace spider.YandexApi
         [JsonProperty("ref")]
         public string name { get; set; }
 
+        public Cost cost { get; set; }
         public Shipment capacity { get; set; }
 
         public bool return_to_depot { get; set; }
@@ -21,5 +22,13 @@ namespace spider.YandexApi
     {
         public object id { get; set; }
         public string time_window { get; set; }
+    }
+
+    public class Cost
+    {
+      public int km { get; set; }
+      public int hour { get; set; }
+      public int @fixed { get; set; }
+      public int tonne_km { get; set; }
     }
 }

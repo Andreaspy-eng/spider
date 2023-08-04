@@ -72,6 +72,10 @@ namespace YandexRouting
                         time_window= "06:00:00-17:00:00"
                     }                                               //FIXME Спросить время работы водителей
                 };
+                 lacalka.cost = new Cost()
+                 {
+                  @fixed = 5000
+                };
                 lacalka.name = car.model;
                 lacalka.capacity = new Shipment()
                 {
