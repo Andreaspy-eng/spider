@@ -44,7 +44,11 @@ namespace YandexRouting
         }
 
 
-        public QueryCreateRouteList createQueryToApi(IEnumerable<Counterparty> Clients, IEnumerable<Car> cars, IEnumerable<InvoiceHeader> unfilteredOrders, IEnumerable<InvoiceHeader> all) 
+        public QueryCreateRouteList createQueryToApi(
+            IEnumerable<Counterparty> Clients,
+            IEnumerable<Car> cars,
+            IEnumerable<InvoiceHeader> unfilteredOrders,
+            IEnumerable<InvoiceHeader> all) 
         {
             var query = new QueryCreateRouteList();
             query.depot = new Depot()
@@ -68,6 +72,19 @@ namespace YandexRouting
                 lacalka.shifts =new Shifts[]
                 {   new Shifts()
                     {
+                        maximal_stops=car.maxStops,
+                        minimal_stops=car.minStops,
+                        penalty=new()
+                        {
+                            stop_lack=new()
+                            {
+                                per_stop=1000
+                            },
+                            stop_excess=new()
+                            {
+                                per_stop=10000
+                            },
+                        },
                         id = "0",
                         time_window= "06:00:00-17:00:00"
                     }                                               //FIXME Спросить время работы водителей

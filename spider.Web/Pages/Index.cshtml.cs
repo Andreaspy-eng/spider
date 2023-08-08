@@ -20,6 +20,7 @@ public class IndexModel : spiderPageModel
     public IEnumerable <InvoiceHeader> Invoices;
     public IEnumerable <InvoiceHeader> lastInvoices;
     private IEnumerable<Counterparty> _counterparties;
+    public IEnumerable <Driver> _drivers;
 
     public IndexModel(IEnumerable<Car> cars)
     {
@@ -53,18 +54,23 @@ public class IndexModel : spiderPageModel
           () =>
            _counterparties = _counterparty.getCounterparties()
         );
+        var driversGet = Task.Run(
+          () =>
+           _drivers = _advantage.GetDrivers()
+        );
         counterpartyGet.Wait();
         invoicesGet.Wait();
         carsGet.Wait();   
+        driversGet.Wait();
     }
 
     public void OnGet()
     {
     }
 
-    public IActionResult OnPostRoutes(string[] checkboxes,List<string> invoices)
+    public IActionResult OnPostRoutes(string[] checkboxes,List<string> invoices, string[] checkboxes_priorety,int minStops,int maxStops)
     {
-        List<Counterparty> FilteredCounterpaties = new() { },WarningCounterparties = new(){};
+        List<Counterparty> FilteredCounterpaties = new(){}, WarningCounterparties = new(){};
         List<InvoiceHeader> FilteredInvoice = new() { };
         List <Car> FilteredCars = new() { };
         int countInvoice=0;
@@ -122,6 +128,12 @@ public class IndexModel : spiderPageModel
                 }            
                 FilteredCars = _cars.Where(x => checkboxes.Contains(x.imei)).ToList();
                 if (checkboxes.Length == 0) FilteredCars = _cars.DistinctBy(x => x.number).ToList();
+                foreach(var item in FilteredCars)
+                {
+                  item.minStops=minStops;
+                  item.maxStops=maxStops;
+                  if(checkboxes_priorety.Contains(item.imei))item.maxStops+=10;
+                }
             }
             var query = _yandex.createQueryToApi(FilteredCounterpaties.DistinctBy(x=>x.codeFromBase), FilteredCars,FilteredInvoice,Invoices);
             var CreatedTask = _yandex.CreateTask(query);

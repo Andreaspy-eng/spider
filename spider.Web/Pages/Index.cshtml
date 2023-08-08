@@ -107,13 +107,21 @@
           <div class="col-lg-5 vh-100  vert-scroll">
             <div class="row">
               <div class="col-md-5 mx-auto">
-                    <div class="input-group mb-1">
-                        <input class="form-control border-end-0 border rounded-pill"  type="search" id="search-box" placeholder="Поиск машин...">
-                    </div>
-                </div>
-                <div class="col-md-auto">
-                  <input id="toggleAll" type="checkbox" onclick="SetAllCheckBoxes(this)" /> 
-                </div>  
+                  <div class="input-group mb-1">
+                      <input class="form-control border-end-0 border rounded-pill"  type="search" id="search-box" placeholder="Поиск машин...">
+                  </div>
+                  <div class="input-group mb-1">
+                      <label>Остановки</label>
+                      <label class="btn btn-outline-primary rounded-circle" data-toggle="tooltip" data-placement="bottom" title="При планировании маршрута можно указать минимальное и максимальное количество остановок в маршруте. Это может быть полезно, например, чтобы ограничить максимальную нагрузку на автомобиль в день или, наоборот, обязательно вывести автомобиль на маршрут с каким-то количеством остановок.">?</label>
+                      <div class="row">
+                         <input type="number" required name="minStops" min=1 max=10 placeholder="Минимальное"/>
+                         <input type="number" required name="maxStops" min=10 max=100 placeholder="Максимальное"/>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-auto">
+                <input id="toggleAll" type="checkbox" onclick="SetAllCheckBoxes(this)" /> 
+              </div>  
               @await Html.PartialAsync("../Views/shared/_partialCars",Model._cars)
                     <script src="~/site.js" asp-append-version="true"></script>
             </div>

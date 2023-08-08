@@ -12,5 +12,8 @@ namespace spider.AdvantageModels
             public double maxWeight { get; set; }
             public double maxPalletCount { get; set; }
             public double maxPackageCount { get; set; }
+            public int minStops {get;set;}
+            public int maxStops {get;set;}
+
     }
 }
